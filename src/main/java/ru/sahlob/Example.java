@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.util.Calendar;
+
 @Component
 public class Example extends TelegramLongPollingBot {
 
@@ -15,7 +17,13 @@ public class Example extends TelegramLongPollingBot {
         long chatId = update.getMessage().getChatId();
         String txt = msg.getText();
         try {
-            execute(new SendMessage(chatId, "Сам " + txt));
+            Calendar calendar = Calendar.getInstance();
+            int seconds = calendar.get(Calendar.SECOND);
+            if (seconds % 2 == 0) {
+                execute(new SendMessage(chatId, "Сам " + txt));
+            } else {
+                execute(new SendMessage(chatId, "Ты " + txt));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
