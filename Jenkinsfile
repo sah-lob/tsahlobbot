@@ -1,7 +1,8 @@
 pipeline {
   environment {
-    registry = "gustavoapolinario/docker-test"
+    registry = "sahlob/t${env.BUILD_NUMBER}"
     registryCredential = "dockerhub"
+    customImage = ""
   }
   agent any
   stages {
@@ -13,20 +14,27 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          docker.build registry + ":$BUILD_NUMBER"
+           customImage = docker.build registry
         }
       }
     }
-    stage('Deploy Image') {
+    stage('push image') {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', 'docker-hub-credentials') {
-            // dockerImage.push()
-            dockerImage.push("${env.BUILD_NUMBER}")
-            dockerImage.push("latest")
+             sh "docker push ${registry}"
           }
         }
       }
     }
+   stage('run docker image') {
+       steps{
+           script {
+               docker.withRegistry( 'https://registry.hub.docker.com', 'docker-hub-credentials') {
+                  sh "docker run -d -p 8085:8085 ${registry}"
+                }
+           }
+       }
+   }
   }
 }
