@@ -11,7 +11,7 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 @Data
 public class Application implements CommandLineRunner {
 
-    private final Example example;
+    private final EntryPoint example;
 
     public static void main(String[] args) {
         ApiContextInitializer.init();
