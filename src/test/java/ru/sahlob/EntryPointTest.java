@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 class EntryPointTest {
 
     @Test
-    public void onUpdateReceivedTest() {
+    void onUpdateReceivedTest() {
         Update update = Mockito.mock(Update.class);
         Message message = Mockito.mock(Message.class);
         when(update.getMessage()).thenReturn(message);
