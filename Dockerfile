@@ -1,4 +1,4 @@
-FROM maven:3.5-jdk-8-alpine as build
+FROM maven:3.6-jdk-8-alpine as build
 COPY src /home/app/src
 COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean install
