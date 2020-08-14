@@ -37,12 +37,12 @@ public class EntryPoint extends TelegramLongPollingBot {
     }
 
     @Override
-    public String getBotUsername() {
+    public final String getBotUsername() {
         return settingsConfigurationInfo.getBotUsername();
     }
 
     @Override
-    public String getBotToken() {
+    public final String getBotToken() {
         return settingsConfigurationInfo.getBotToken();
     }
 }

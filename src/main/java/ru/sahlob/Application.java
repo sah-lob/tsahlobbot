@@ -1,6 +1,3 @@
-/*
- * Info about this package doing something for package-info.java file.
- */
 package ru.sahlob;
 
 import lombok.Data;
@@ -16,7 +13,7 @@ public class Application implements CommandLineRunner {
 
     private final EntryPoint example;
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         ApiContextInitializer.init();
         SpringApplication.run(Application.class, args);
     }
