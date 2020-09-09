@@ -8,19 +8,17 @@ import java.util.Set;
 @Data
 public class ScriptMessage {
     private int id;
+    private String name;
     private String messageText;
     private String buttonText;
     private String stepBack;
     private Set<String> next = new HashSet<>();
 
-    public ScriptMessage(String messageText, String buttonText, String stepBack, Set<String> next) {
+    public ScriptMessage(String name, String messageText, String buttonText, String stepBack, Set<String> next) {
+        this.name = name;
         this.messageText = messageText;
         this.buttonText = buttonText;
         this.stepBack = stepBack;
         this.next = next;
-    }
-
-    public boolean nextTextExist(String messageText) {
-        return next.contains(messageText);
     }
 }

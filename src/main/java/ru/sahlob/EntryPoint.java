@@ -80,6 +80,7 @@ public class EntryPoint extends TelegramLongPollingBot {
         return inlineKeyboardMarkup;
     }
 
+
     @Override
     public final String getBotUsername() {
         return settingsConfigurationInfo.getBotUsername();
@@ -89,4 +90,6 @@ public class EntryPoint extends TelegramLongPollingBot {
     public final String getBotToken() {
         return settingsConfigurationInfo.getBotToken();
     }
+
+
 }
