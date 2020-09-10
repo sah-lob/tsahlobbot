@@ -1,4 +1,6 @@
-package ru.sahlob.logic.persistance.script;
+package ru.sahlob.storage.interfaces;
+
+import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 
 import java.util.Set;
 

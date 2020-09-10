@@ -1,4 +1,4 @@
-package ru.sahlob.storage;
+package ru.sahlob.storage.interfaces;
 
 import ru.sahlob.logic.persistance.Person;
 

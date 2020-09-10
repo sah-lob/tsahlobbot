@@ -1,7 +1,7 @@
 package ru.sahlob.logic.persistance;
 
 import lombok.Data;
-import ru.sahlob.logic.persistance.script.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 
 @Data
 public class Person {

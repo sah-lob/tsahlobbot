@@ -1,24 +1,28 @@
-package ru.sahlob.logic.persistance.script;
+package ru.sahlob.storage.memory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static ru.sahlob.logic.persistance.script.ScriptMessageText.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.BACK_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_NAME;
 
 @Service
-public class ScriptMessageMemoryStorage implements  ScriptMessageStorage {
+public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
 
-    private final HashMap<String, ScriptMessage> scriptMessages = new HashMap<>();
+    private final Map<String, ScriptMessage> scriptMessages;
 
-    public ScriptMessageMemoryStorage() {
-        // имя/ надпись на экране/ кнопка/ прошлый ход/ будущие варианты
-        putNewMessage(PLUG_NAME, PLUG_GAME_BUTTON, PLUG_GAME_TEXT, START_BUTTON, Collections.singletonList(START_NAME));
-        putNewMessage(COUNT_THEME_NAME, ALL_BUTTONS, COUNT_THEME_GAME_TEXT, CREATE_GAME_BUTTON, Collections.singletonList(PLUG_NAME));
-        putNewMessage(CREATE_GAME_NAME, CREATE_GAME_BUTTON, CREATE_GAME_TEXT, START_BUTTON, Collections.singletonList(COUNT_THEME_NAME));
-        putNewMessage(PLAY_GAME_NAME, PLAY_GAME_BUTTON, PLAY_GAME_TEXT, START_BUTTON, Collections.singletonList(PLUG_NAME));
-        putNewMessage(START_NAME, START_BUTTON, START_TEXT, START_BUTTON, Arrays.asList(PLAY_GAME_NAME, CREATE_GAME_NAME));
+    @Autowired
+    public ScriptMessageMemoryStorage(Set<ScriptMessage> set) {
+        scriptMessages = set.stream()
+                .collect(Collectors.toMap(ScriptMessage::getName,
+                        Function.identity(), (first, second) -> first));
+//        scriptMessages.entrySet().forEach(System.out::println);
     }
 
     @Override
@@ -51,15 +55,6 @@ public class ScriptMessageMemoryStorage implements  ScriptMessageStorage {
             }
             return scriptMessage;
         }
-    }
-
-    private void putNewMessage(String name, String button, String text, String stepBack, List<String> nextSteps) {
-        scriptMessages.put(name,
-                new ScriptMessage(name,
-                        text,
-                        button,
-                        stepBack,
-                        new HashSet<>(nextSteps)));
     }
 
     @Override

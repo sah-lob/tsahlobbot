@@ -1,7 +1,8 @@
-package ru.sahlob.storage;
+package ru.sahlob.storage.memory;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.storage.interfaces.PersonsStorage;
 
 import java.util.ArrayList;
 import java.util.List;

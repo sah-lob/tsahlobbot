@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static ru.sahlob.logic.persistance.script.ScriptMessageText.BACK_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.BACK_BUTTON;
 
 @EqualsAndHashCode(callSuper = true)
 @Component
