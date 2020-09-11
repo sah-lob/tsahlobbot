@@ -2,6 +2,7 @@ package ru.sahlob.storage.memory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 
@@ -22,39 +23,11 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
         scriptMessages = set.stream()
                 .collect(Collectors.toMap(ScriptMessage::getName,
                         Function.identity(), (first, second) -> first));
-//        scriptMessages.entrySet().forEach(System.out::println);
     }
 
     @Override
     public ScriptMessage getStartMessage() {
         return scriptMessages.get(START_NAME);
-    }
-
-    @Override
-    public ScriptMessage updateScript(ScriptMessage scriptMessage, String text) {
-        if (text.equals(BACK_BUTTON)) {
-            return scriptMessages.get(scriptMessage.getStepBack());
-        }
-
-        List<ScriptMessage> sm = scriptMessages
-                .values()
-                .stream()
-                .filter(x -> x.getButtonText().equals(text)).collect(Collectors.toList());
-
-        if (!sm.isEmpty()) {
-            return scriptMessages.get(sm.get(0).getName());
-        } else {
-            if (scriptMessage.getNext().size() == 1) {
-                Optional<String> result = scriptMessage
-                        .getNext()
-                        .stream()
-                        .findFirst();
-                if (result.isPresent()) {
-                    return scriptMessages.get(result.get());
-                }
-            }
-            return scriptMessage;
-        }
     }
 
     @Override
@@ -65,5 +38,59 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
                 .map(x -> scriptMessages.get(x)
                         .getButtonText())
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public ScriptMessage updateScript(Person person, String text) {
+
+        ScriptMessage scriptMessage = person.getScriptMessage();
+        scriptMessage.doWork(text, person);
+
+        if (text.equals(BACK_BUTTON)) {
+            return scriptMessages.get(scriptMessage.getStepBack());
+        }
+        return getNextScriptMessage(person, text);
+    }
+
+    private ScriptMessage getNextScriptMessage(Person person, String text) {
+        ScriptMessage nextScriptMessage;
+        if (person.isScriptCycle() && person.getScriptCycleCount() > person.getScriptCycleNum()) {
+            person.incrementScriptCycleNum();
+            nextScriptMessage = person.getScriptMessage();
+        } else {
+            nextScriptMessage = getNextScriptMessageFromScriptMessages(person, text);
+        }
+        return nextScriptMessage;
+    }
+
+    private ScriptMessage getNextScriptMessageFromScriptMessages(Person person, String text) {
+        ScriptMessage scriptMessage = person.getScriptMessage();
+        List<ScriptMessage> sm = getScriptMessagesWithThisText(text);
+        ScriptMessage nextScriptMessage;
+        if (!sm.isEmpty()) {
+            nextScriptMessage = scriptMessages.get(sm.get(0).getName());
+        } else {
+            if (scriptMessage.getNext().size() == 1) {
+                Optional<String> result = scriptMessage
+                        .getNext()
+                        .stream()
+                        .findFirst();
+                if (result.isPresent()) {
+                    nextScriptMessage = scriptMessages.get(result.get());
+                } else {
+                    nextScriptMessage = scriptMessage;
+                }
+            } else {
+                nextScriptMessage = scriptMessage;
+            }
+        }
+        return nextScriptMessage;
+    }
+
+    private List<ScriptMessage> getScriptMessagesWithThisText(String text) {
+        return scriptMessages
+                .values()
+                .stream()
+                .filter(x -> x.getButtonText().equals(text)).collect(Collectors.toList());
     }
 }

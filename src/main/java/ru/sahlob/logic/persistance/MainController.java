@@ -22,7 +22,7 @@ public class MainController {
         if (person.getScriptMessage() == null) {
             person.setScriptMessage(scriptMessageStorage.getStartMessage());
         } else {
-            person.setScriptMessage(scriptMessageStorage.updateScript(person.getScriptMessage(), txt));
+            person.setScriptMessage(scriptMessageStorage.updateScript(person, txt));
         }
         return new VarMessage(person.getScriptMessage().getMessageText(),
                 scriptMessageStorage

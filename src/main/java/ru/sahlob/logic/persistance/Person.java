@@ -13,5 +13,12 @@ public class Person {
     private int firstMessageTime;
     private int massageCount;
     private ScriptMessage scriptMessage;
+    private boolean isScriptCycle;
+    private int scriptCycleCount;
+    private int scriptCycleNum;
     private ScriptMessage varMessage;
+
+    public void incrementScriptCycleNum() {
+        scriptCycleNum++;
+    }
 }

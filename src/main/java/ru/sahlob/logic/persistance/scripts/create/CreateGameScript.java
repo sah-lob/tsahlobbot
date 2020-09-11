@@ -39,14 +39,10 @@ public class CreateGameScript implements ScriptMessage {
     }
 
     @Override
-    public int getScriptCycle() {
-        return 0;
+    public boolean isCycleExist() {
+        return false;
     }
 
-    @Override
-    public void setScriptCycle(int scriptCycle) {
-
-    }
 
     @Override
     public void doWork(String message, Person person) {

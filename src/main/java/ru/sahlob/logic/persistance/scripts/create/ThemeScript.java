@@ -13,8 +13,6 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 @Component
 public class ThemeScript implements ScriptMessage {
 
-    private int scriptCycle = 0;
-
     @Override
     public String getName() {
         return THEME_GAME_NAME;
@@ -41,17 +39,12 @@ public class ThemeScript implements ScriptMessage {
     }
 
     @Override
-    public int getScriptCycle() {
-        return scriptCycle;
-    }
-
-    @Override
-    public void setScriptCycle(int scriptCycle) {
-        this.scriptCycle = scriptCycle;
+    public boolean isCycleExist() {
+        return true;
     }
 
     @Override
     public void doWork(String message, Person person) {
-        
+
     }
 }

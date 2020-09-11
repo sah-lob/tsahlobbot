@@ -39,13 +39,8 @@ public class CountQuestionsScript implements ScriptMessage {
     }
 
     @Override
-    public int getScriptCycle() {
-        return -1;
-    }
-
-    @Override
-    public void setScriptCycle(int scriptCycle) {
-
+    public boolean isCycleExist() {
+        return false;
     }
 
 

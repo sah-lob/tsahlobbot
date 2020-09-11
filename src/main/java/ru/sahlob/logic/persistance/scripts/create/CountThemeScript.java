@@ -39,14 +39,10 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public int getScriptCycle() {
-        return -1;
+    public boolean isCycleExist() {
+        return false;
     }
 
-    @Override
-    public void setScriptCycle(int scriptCycle) {
-
-    }
 
     @Override
     public void doWork(String message, Person person) {

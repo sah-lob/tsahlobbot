@@ -39,6 +39,11 @@ public class PlugScript implements ScriptMessage {
     }
 
     @Override
+    public boolean isCycleExist() {
+        return false;
+    }
+
+    @Override
     public void doWork(String message, Person person) {
 
     }
