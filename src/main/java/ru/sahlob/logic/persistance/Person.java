@@ -14,8 +14,8 @@ public class Person {
     private int massageCount;
     private ScriptMessage scriptMessage;
     private boolean isScriptCycle;
-    private int scriptCycleCount;
-    private int scriptCycleNum;
+    private int scriptCycleCount = 5;
+    private int scriptCycleNum = 0;
     private ScriptMessage varMessage;
 
     public void incrementScriptCycleNum() {

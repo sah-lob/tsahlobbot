@@ -43,13 +43,13 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     @Override
     public ScriptMessage updateScript(Person person, String text) {
 
+        ScriptMessage newScriptMessage;
         ScriptMessage scriptMessage = person.getScriptMessage();
         scriptMessage.doWork(text, person);
 
-        if (text.equals(BACK_BUTTON)) {
-            return scriptMessages.get(scriptMessage.getStepBack());
-        }
-        return getNextScriptMessage(person, text);
+        return text.equals(BACK_BUTTON) ?
+                scriptMessages.get(scriptMessage.getStepBack()) :
+                getNextScriptMessage(person, text);
     }
 
     private ScriptMessage getNextScriptMessage(Person person, String text) {
@@ -59,6 +59,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
             nextScriptMessage = person.getScriptMessage();
         } else {
             nextScriptMessage = getNextScriptMessageFromScriptMessages(person, text);
+            person.setScriptCycle(nextScriptMessage.isCycleExist());
         }
         return nextScriptMessage;
     }

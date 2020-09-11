@@ -45,5 +45,6 @@ public class StartScript implements ScriptMessage {
 
     @Override
     public void doWork(String message, Person person) {
+        System.out.println(message);
     }
 }
