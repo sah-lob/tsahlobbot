@@ -14,8 +14,8 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 public class StartScript implements ScriptMessage {
 
     @Override
-    public String getName() {
-        return START_NAME;
+    public ScriptNames getName() {
+        return ScriptNames.START;
     }
 
     @Override
@@ -29,13 +29,13 @@ public class StartScript implements ScriptMessage {
     }
 
     @Override
-    public String getStepBack() {
-        return START_BUTTON;
+    public ScriptNames getStepBack() {
+        return ScriptNames.START;
     }
 
     @Override
-    public Set<String> getNext() {
-        return new HashSet<>(Arrays.asList(PLAY_GAME_NAME, CREATE_GAME_NAME));
+    public Set<ScriptNames> getNext() {
+        return new HashSet<>(Arrays.asList(ScriptNames.PLAY, ScriptNames.COUNT_THEME));
     }
 
     @Override

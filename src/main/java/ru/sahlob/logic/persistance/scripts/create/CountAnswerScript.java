@@ -3,39 +3,39 @@ package ru.sahlob.logic.persistance.scripts.create;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
 @Component
-public class CreateGameScript implements ScriptMessage {
+public class CountAnswerScript implements ScriptMessage {
 
     @Override
-    public String getName() {
-        return CREATE_GAME_NAME;
+    public ScriptNames getName() {
+        return ScriptNames.COUNT_ANSWERS;
     }
 
     @Override
     public String getMessageText() {
-        return CREATE_GAME_TEXT;
+        return COUNT_ANSWERS_TEXT;
     }
 
     @Override
     public String getButtonText() {
-        return CREATE_GAME_BUTTON;
+        return ALL_BUTTONS;
     }
 
     @Override
-    public String getStepBack() {
-        return START_BUTTON;
+    public ScriptNames getStepBack() {
+        return ScriptNames.COUNT_QUESTIONS;
     }
 
     @Override
-    public Set<String> getNext() {
-        return new HashSet<>(Collections.singletonList(COUNT_THEME_NAME));
+    public Set<ScriptNames> getNext() {
+        return new HashSet<>(Collections.singletonList(ScriptNames.QUESTION));
     }
 
     @Override
@@ -43,9 +43,8 @@ public class CreateGameScript implements ScriptMessage {
         return false;
     }
 
-
     @Override
     public void doWork(String message, Person person) {
-        System.out.println(message);
+        person.getLastGame().setAnswerCount(Integer.parseInt(message));
     }
 }

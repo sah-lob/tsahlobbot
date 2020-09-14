@@ -14,8 +14,8 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 public class PlugScript implements ScriptMessage {
 
     @Override
-    public String getName() {
-        return PLUG_NAME;
+    public ScriptNames getName() {
+        return ScriptNames.PLUG;
     }
 
     @Override
@@ -29,13 +29,13 @@ public class PlugScript implements ScriptMessage {
     }
 
     @Override
-    public String getStepBack() {
-        return START_BUTTON;
+    public ScriptNames getStepBack() {
+        return ScriptNames.START;
     }
 
     @Override
-    public Set<String> getNext() {
-        return new HashSet<>(Collections.singletonList(START_NAME));
+    public Set<ScriptNames> getNext() {
+        return new HashSet<>(Collections.singletonList(ScriptNames.START));
     }
 
     @Override

@@ -3,8 +3,8 @@ package ru.sahlob.logic.persistance;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Controller;
-import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 import ru.sahlob.storage.interfaces.PersonsStorage;
+import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 
 import java.util.stream.Collectors;
 

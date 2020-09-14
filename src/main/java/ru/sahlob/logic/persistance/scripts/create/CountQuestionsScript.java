@@ -3,6 +3,7 @@ package ru.sahlob.logic.persistance.scripts.create;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,8 +15,8 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 public class CountQuestionsScript implements ScriptMessage {
 
     @Override
-    public String getName() {
-        return COUNT_QUESTIONS_NAME;
+    public ScriptNames getName() {
+        return ScriptNames.COUNT_QUESTIONS;
     }
 
     @Override
@@ -29,13 +30,13 @@ public class CountQuestionsScript implements ScriptMessage {
     }
 
     @Override
-    public String getStepBack() {
-        return COUNT_THEME_NAME;
+    public ScriptNames getStepBack() {
+        return ScriptNames.COUNT_THEME;
     }
 
     @Override
-    public Set<String> getNext() {
-        return new HashSet<>(Collections.singletonList(QUESTION_NAME));
+    public Set<ScriptNames> getNext() {
+        return new HashSet<>(Collections.singletonList(ScriptNames.COUNT_ANSWERS));
     }
 
     @Override
@@ -46,6 +47,7 @@ public class CountQuestionsScript implements ScriptMessage {
 
     @Override
     public void doWork(String message, Person person) {
+        person.getLastGame().setQuestionCount(Integer.parseInt(message));
         System.out.println(message);
     }
 }

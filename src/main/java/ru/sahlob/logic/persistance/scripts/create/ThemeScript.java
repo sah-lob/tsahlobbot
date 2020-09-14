@@ -3,6 +3,7 @@ package ru.sahlob.logic.persistance.scripts.create;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,8 +15,8 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 public class ThemeScript implements ScriptMessage {
 
     @Override
-    public String getName() {
-        return THEME_GAME_NAME;
+    public ScriptNames getName() {
+        return ScriptNames.THEME_GAME;
     }
 
     @Override
@@ -29,13 +30,13 @@ public class ThemeScript implements ScriptMessage {
     }
 
     @Override
-    public String getStepBack() {
-        return null;
+    public ScriptNames getStepBack() {
+        return ScriptNames.START;
     }
 
     @Override
-    public Set<String> getNext() {
-        return new HashSet<>(Arrays.asList(THEME_GAME_NAME, QUESTION_NAME));
+    public Set<ScriptNames> getNext() {
+        return new HashSet<>(Arrays.asList(ScriptNames.THEME_GAME, ScriptNames.QUESTION));
     }
 
     @Override

@@ -4,19 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.BACK_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_NAME;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
 
 @Service
 public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
 
-    private final Map<String, ScriptMessage> scriptMessages;
+    private final Map<ScriptNames, ScriptMessage> scriptMessages;
 
     @Autowired
     public ScriptMessageMemoryStorage(Set<ScriptMessage> set) {
@@ -27,7 +31,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
 
     @Override
     public ScriptMessage getStartMessage() {
-        return scriptMessages.get(START_NAME);
+        return scriptMessages.get(START);
     }
 
     @Override
@@ -69,7 +73,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
             nextScriptMessage = scriptMessages.get(sm.get(0).getName());
         } else {
             if (scriptMessage.getNext().size() == 1) {
-                Optional<String> result = scriptMessage
+                Optional<ScriptNames> result = scriptMessage
                         .getNext()
                         .stream()
                         .findFirst();

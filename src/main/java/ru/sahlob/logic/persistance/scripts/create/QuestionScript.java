@@ -3,6 +3,7 @@ package ru.sahlob.logic.persistance.scripts.create;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
 import java.util.Set;
@@ -13,8 +14,8 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 public class QuestionScript implements ScriptMessage {
 
     @Override
-    public String getName() {
-        return QUESTION_NAME;
+    public ScriptNames getName() {
+        return ScriptNames.QUESTION;
     }
 
     @Override
@@ -28,13 +29,13 @@ public class QuestionScript implements ScriptMessage {
     }
 
     @Override
-    public String getStepBack() {
-        return START_NAME;
+    public ScriptNames getStepBack() {
+        return ScriptNames.START;
     }
 
     @Override
-    public Set<String> getNext() {
-        return Collections.singleton(PLUG_NAME);
+    public Set<ScriptNames> getNext() {
+        return Collections.singleton(ScriptNames.PLUG);
     }
 
     @Override

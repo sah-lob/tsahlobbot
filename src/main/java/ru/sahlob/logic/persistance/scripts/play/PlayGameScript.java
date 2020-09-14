@@ -3,6 +3,7 @@ package ru.sahlob.logic.persistance.scripts.play;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,8 +15,8 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 public class PlayGameScript implements ScriptMessage {
 
     @Override
-    public String getName() {
-        return PLAY_GAME_NAME;
+    public ScriptNames getName() {
+        return ScriptNames.PLAY;
     }
 
     @Override
@@ -29,13 +30,13 @@ public class PlayGameScript implements ScriptMessage {
     }
 
     @Override
-    public String getStepBack() {
-        return START_BUTTON;
+    public ScriptNames getStepBack() {
+        return ScriptNames.START;
     }
 
     @Override
-    public Set<String> getNext() {
-        return new HashSet<>(Collections.singletonList(PLUG_NAME));
+    public Set<ScriptNames> getNext() {
+        return new HashSet<>(Collections.singletonList(ScriptNames.PLUG));
     }
 
     @Override
