@@ -19,7 +19,7 @@ public class CountAnswerScript implements ScriptMessage {
     }
 
     @Override
-    public String getMessageText() {
+    public String getMessageText(Person person) {
         return COUNT_ANSWERS_TEXT;
     }
 
@@ -35,7 +35,7 @@ public class CountAnswerScript implements ScriptMessage {
 
     @Override
     public Set<ScriptNames> getNext() {
-        return new HashSet<>(Collections.singletonList(ScriptNames.QUESTION));
+        return new HashSet<>(Collections.singletonList(ScriptNames.THEME_GAME));
     }
 
     @Override

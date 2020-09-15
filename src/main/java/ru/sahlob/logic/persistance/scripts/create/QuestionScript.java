@@ -19,7 +19,7 @@ public class QuestionScript implements ScriptMessage {
     }
 
     @Override
-    public String getMessageText() {
+    public String getMessageText(Person person) {
         return QUESTION_TEXT;
     }
 

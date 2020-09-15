@@ -24,7 +24,7 @@ public class MainController {
         } else {
             person.setScriptMessage(scriptMessageStorage.updateScript(person, txt));
         }
-        return new VarMessage(person.getScriptMessage().getMessageText(),
+        return new VarMessage(person.getScriptMessage().getMessageText(person),
                 scriptMessageStorage
                         .getNextButtons(person
                                 .getScriptMessage())

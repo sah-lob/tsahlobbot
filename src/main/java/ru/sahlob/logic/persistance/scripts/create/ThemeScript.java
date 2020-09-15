@@ -20,8 +20,8 @@ public class ThemeScript implements ScriptMessage {
     }
 
     @Override
-    public String getMessageText() {
-        return THEME_GAME_TEXT;
+    public String getMessageText(Person person) {
+        return THEME_GAME_TEXT + " " + person.getScriptCycleNum() + 1;
     }
 
     @Override

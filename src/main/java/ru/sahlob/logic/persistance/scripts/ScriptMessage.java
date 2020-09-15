@@ -8,7 +8,7 @@ import java.util.Set;
 public interface ScriptMessage {
 
     ScriptNames getName();
-    String getMessageText();
+    String getMessageText(Person person);
     String getButtonText();
     ScriptNames getStepBack();
     Set<ScriptNames> getNext();

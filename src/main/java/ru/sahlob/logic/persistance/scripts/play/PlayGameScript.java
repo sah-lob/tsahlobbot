@@ -20,7 +20,7 @@ public class PlayGameScript implements ScriptMessage {
     }
 
     @Override
-    public String getMessageText() {
+    public String getMessageText(Person person) {
         return PLAY_GAME_TEXT;
     }
 

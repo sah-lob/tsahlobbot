@@ -20,7 +20,7 @@ public class CountQuestionsScript implements ScriptMessage {
     }
 
     @Override
-    public String getMessageText() {
+    public String getMessageText(Person person) {
         return COUNT_QUESTIONS_TEXT;
     }
 
