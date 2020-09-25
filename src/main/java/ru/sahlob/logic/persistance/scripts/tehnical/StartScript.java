@@ -2,13 +2,14 @@ package ru.sahlob.logic.persistance.scripts.tehnical;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_TEXT;
 
 @Component
 public class StartScript implements ScriptMessage {
@@ -34,13 +35,8 @@ public class StartScript implements ScriptMessage {
     }
 
     @Override
-    public Set<ScriptNames> getNext() {
-        return new HashSet<>(Arrays.asList(ScriptNames.PLAY, ScriptNames.COUNT_THEME));
-    }
-
-    @Override
-    public boolean isCycleExist() {
-        return false;
+    public List<ScriptNames> getNext(Game game) {
+        return Arrays.asList(ScriptNames.PLAY, ScriptNames.COUNT_THEMES);
     }
 
     @Override

@@ -3,13 +3,13 @@ package ru.sahlob.storage.memory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -37,7 +37,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     @Override
     public Set<String> getNextButtons(ScriptMessage scriptMessage) {
         return scriptMessage
-                .getNext()
+                .getNext(null)
                 .stream()
                 .map(x -> scriptMessages.get(x)
                         .getButtonText())
@@ -60,7 +60,6 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
             nextScriptMessage = person.getScriptMessage();
         } else {
             nextScriptMessage = getNextScriptMessageFromScriptMessages(person, text);
-            person.setScriptCycle(nextScriptMessage.isCycleExist());
         }
         return nextScriptMessage;
     }
@@ -68,23 +67,22 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     private ScriptMessage getNextScriptMessageFromScriptMessages(Person person, String text) {
         ScriptMessage scriptMessage = person.getScriptMessage();
         List<ScriptMessage> sm = getScriptMessagesWithThisText(text);
-        ScriptMessage nextScriptMessage;
-        if (!sm.isEmpty()) {
-            nextScriptMessage = scriptMessages.get(sm.get(0).getName());
-        } else {
-            if (scriptMessage.getNext().size() == 1) {
-                Optional<ScriptNames> result = scriptMessage
-                        .getNext()
-                        .stream()
-                        .findFirst();
-                if (result.isPresent()) {
-                    nextScriptMessage = scriptMessages.get(result.get());
-                } else {
-                    nextScriptMessage = scriptMessage;
+        ScriptMessage nextScriptMessage = scriptMessage;
+        if (sm.isEmpty()) {
+            if (scriptMessage.getNext(person.getLastGame()).size() == 1) {
+                nextScriptMessage = scriptMessages.get(scriptMessage.getNext(person.getLastGame()).get(0));
+            } else if (scriptMessage.getNext(person.getLastGame()).size() > 1) {
+                List<ScriptNames> result = scriptMessage.getNext(person.getLastGame());
+                for (ScriptNames scriptNames : result) {
+                    Game game = person.getLastGame();
+                    if (game.getScriptNameCount(scriptNames) > game.getScriptNameIntroducece(scriptNames)) {
+                        nextScriptMessage = scriptMessages.get(scriptNames);
+                        break;
+                    }
                 }
-            } else {
-                nextScriptMessage = scriptMessage;
             }
+        } else {
+            nextScriptMessage = scriptMessages.get(sm.get(0).getName());
         }
         return nextScriptMessage;
     }
@@ -93,6 +91,9 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
         return scriptMessages
                 .values()
                 .stream()
-                .filter(x -> x.getButtonText().equals(text)).collect(Collectors.toList());
+                .filter(x ->
+                        x.getButtonText()
+                                .equals(text))
+                .collect(Collectors.toList());
     }
 }

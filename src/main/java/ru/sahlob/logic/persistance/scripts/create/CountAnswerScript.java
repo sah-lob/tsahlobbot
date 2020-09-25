@@ -2,13 +2,15 @@ package ru.sahlob.logic.persistance.scripts.create;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
+import java.util.List;
+
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.COUNT_ANSWERS_TEXT;
 
 @Component
 public class CountAnswerScript implements ScriptMessage {
@@ -34,17 +36,12 @@ public class CountAnswerScript implements ScriptMessage {
     }
 
     @Override
-    public Set<ScriptNames> getNext() {
-        return new HashSet<>(Collections.singletonList(ScriptNames.THEME_GAME));
-    }
-
-    @Override
-    public boolean isCycleExist() {
-        return false;
+    public List<ScriptNames> getNext(Game game) {
+        return Collections.singletonList(ScriptNames.GAME_THEMES);
     }
 
     @Override
     public void doWork(String message, Person person) {
-        person.getLastGame().setAnswerCount(Integer.parseInt(message));
+        person.getLastGame().setCounters(person.getScriptMessage().getName(), Integer.parseInt(message));
     }
 }

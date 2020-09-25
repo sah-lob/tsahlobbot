@@ -7,17 +7,17 @@ import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.COUNT_THEME_GAME_TEXT;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATE_GAME_BUTTON;
 
 @Component
 public class CountThemeScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.COUNT_THEME;
+        return ScriptNames.COUNT_THEMES;
     }
 
     @Override
@@ -36,20 +36,14 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public Set<ScriptNames> getNext() {
-        return new HashSet<>(Collections.singletonList(ScriptNames.COUNT_QUESTIONS));
+    public List<ScriptNames> getNext(Game game) {
+        return Collections.singletonList(ScriptNames.COUNT_QUESTIONS);
     }
-
-    @Override
-    public boolean isCycleExist() {
-        return false;
-    }
-
 
     @Override
     public void doWork(String message, Person person) {
         person.addNewGame(new Game());
-        person.getLastGame().setThemeCount(Integer.parseInt(message));
+        person.getLastGame().setCounters(person.getScriptMessage().getName(), Integer.parseInt(message));
         System.out.println(message);
     }
 }

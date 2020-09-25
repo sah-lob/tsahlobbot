@@ -2,14 +2,15 @@ package ru.sahlob.logic.persistance.scripts.create;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.COUNT_QUESTIONS_TEXT;
 
 @Component
 public class CountQuestionsScript implements ScriptMessage {
@@ -31,23 +32,17 @@ public class CountQuestionsScript implements ScriptMessage {
 
     @Override
     public ScriptNames getStepBack() {
-        return ScriptNames.COUNT_THEME;
+        return ScriptNames.COUNT_THEMES;
     }
 
     @Override
-    public Set<ScriptNames> getNext() {
-        return new HashSet<>(Collections.singletonList(ScriptNames.COUNT_ANSWERS));
+    public List<ScriptNames> getNext(Game game) {
+        return Collections.singletonList(ScriptNames.COUNT_ANSWERS);
     }
-
-    @Override
-    public boolean isCycleExist() {
-        return false;
-    }
-
 
     @Override
     public void doWork(String message, Person person) {
-        person.getLastGame().setQuestionCount(Integer.parseInt(message));
+        person.getLastGame().setCounters(person.getScriptMessage().getName(), Integer.parseInt(message));
         System.out.println(message);
     }
 }

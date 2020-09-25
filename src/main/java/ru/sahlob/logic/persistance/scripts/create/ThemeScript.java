@@ -2,26 +2,27 @@ package ru.sahlob.logic.persistance.scripts.create;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.THEME_GAME_TEXT;
 
 @Component
 public class ThemeScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.THEME_GAME;
+        return ScriptNames.GAME_THEMES;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return THEME_GAME_TEXT + " " + person.getScriptCycleNum() + 1;
+        return THEME_GAME_TEXT + " " + (person.getLastGame().getThemes().size() + 1);
     }
 
     @Override
@@ -35,17 +36,13 @@ public class ThemeScript implements ScriptMessage {
     }
 
     @Override
-    public Set<ScriptNames> getNext() {
-        return new HashSet<>(Arrays.asList(ScriptNames.THEME_GAME, ScriptNames.QUESTION));
-    }
-
-    @Override
-    public boolean isCycleExist() {
-        return true;
+    public List<ScriptNames> getNext(Game game) {
+        return Collections.singletonList(ScriptNames.GAME_QUESTIONS);
     }
 
     @Override
     public void doWork(String message, Person person) {
+        person.getLastGame().addTheme(message);
         System.out.println(message);
     }
 }

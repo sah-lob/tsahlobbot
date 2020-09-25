@@ -11,6 +11,8 @@ public class ScriptMessageText {
     public static final String COUNT_ANSWERS_TEXT = "Введите цифру. Сколько ответов будет в каждом вопросе";
     public static final String THEME_GAME_TEXT = "Введите название темы номер ";
     public static final String QUESTION_TEXT = "Введите вопрос номер ";
+    public static final String ANSWER_TEXT = "Введите ответ номер ";
+    public static final String RIGHT_ANSWER_TEXT = "Введите ПРАВИЛЬНЫЙ ответ";
     public static final String PLAY_GAME_TEXT = "Игра началась";
     public static final String PLUG_GAME_TEXT = "Текст заглушки";
 
