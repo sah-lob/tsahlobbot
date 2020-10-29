@@ -8,8 +8,7 @@ import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import java.util.Collections;
 import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLUG_GAME_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLUG_GAME_TEXT;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
 @Component
 public class PlugScript implements ScriptMessage {
@@ -27,6 +26,16 @@ public class PlugScript implements ScriptMessage {
     @Override
     public String getButtonText() {
         return PLUG_GAME_BUTTON;
+    }
+
+    @Override
+    public boolean isScriptValid(String message) {
+        return true;
+    }
+
+    @Override
+    public String getErrorValidMessage() {
+        return ERROR_VALID_MESSAGE;
     }
 
     @Override

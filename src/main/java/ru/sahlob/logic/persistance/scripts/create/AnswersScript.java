@@ -38,6 +38,16 @@ public class AnswersScript implements ScriptMessage {
     }
 
     @Override
+    public boolean isScriptValid(String message) {
+        return true;
+    }
+
+    @Override
+    public String getErrorValidMessage() {
+        return ERROR_VALID_MESSAGE;
+    }
+
+    @Override
     public ScriptNames getStepBack() {
         return START;
     }

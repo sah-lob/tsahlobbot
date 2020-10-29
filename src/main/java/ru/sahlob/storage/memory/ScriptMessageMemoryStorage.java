@@ -47,10 +47,14 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     @Override
     public ScriptMessage updateScript(Person person, String text) {
         ScriptMessage scriptMessage = person.getScriptMessage();
-        scriptMessage.doWork(text, person);
+        if (scriptMessage.isScriptValid(text)) {
+            scriptMessage.doWork(text, person);
         return text.equals(BACK_BUTTON)
                 ? scriptMessages.get(scriptMessage.getStepBack())
                 : getNextScriptMessage(person, text);
+        }
+        return scriptMessage;
+//        scriptMessage.doWork(text, person);
     }
 
     private ScriptMessage getNextScriptMessage(Person person, String text) {

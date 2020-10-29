@@ -16,6 +16,8 @@ public class ScriptMessageText {
     public static final String PLAY_GAME_TEXT = "Игра началась";
     public static final String PLUG_GAME_TEXT = "Текст заглушки";
 
+    public static final String ERROR_VALID_MESSAGE = "Введенный текст не валидный";
+
     public static final String ALL_BUTTONS = "All_COUNT_BUTTONS";
     public static final String START_BUTTON = "Начало";
     public static final String PLAY_GAME_BUTTON = "Начать игру";

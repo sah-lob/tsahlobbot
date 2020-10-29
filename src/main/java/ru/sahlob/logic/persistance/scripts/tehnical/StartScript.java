@@ -8,8 +8,7 @@ import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import java.util.Arrays;
 import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_TEXT;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
 @Component
 public class StartScript implements ScriptMessage {
@@ -27,6 +26,16 @@ public class StartScript implements ScriptMessage {
     @Override
     public String getButtonText() {
         return START_BUTTON;
+    }
+
+    @Override
+    public boolean isScriptValid(String message) {
+        return message.equals(CREATE_GAME_BUTTON) || message.equals(PLAY_GAME_BUTTON);
+    }
+
+    @Override
+    public String getErrorValidMessage() {
+        return null;
     }
 
     @Override

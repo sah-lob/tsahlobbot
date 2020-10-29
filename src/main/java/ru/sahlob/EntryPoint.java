@@ -39,6 +39,7 @@ public class EntryPoint extends TelegramLongPollingBot {
         Person person = getPerson(msg.getFrom(), msg.getChatId());
         long chatId = msg.getChatId();
         String txt = update.getMessage() != null ? update.getMessage().getText() : update.getCallbackQuery().getData();
+        System.out.println("Start message: " + txt);
         VarMessage varMessage = mainController.startLogic(person, txt, chatId);
         sendMessage(varMessage);
     }

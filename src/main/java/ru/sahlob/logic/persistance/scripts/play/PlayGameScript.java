@@ -9,8 +9,7 @@ import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 import java.util.Collections;
 import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLAY_GAME_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLAY_GAME_TEXT;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
 @Component
 public class PlayGameScript implements ScriptMessage {
@@ -28,6 +27,16 @@ public class PlayGameScript implements ScriptMessage {
     @Override
     public String getButtonText() {
         return PLAY_GAME_BUTTON;
+    }
+
+    @Override
+    public boolean isScriptValid(String message) {
+        return false;
+    }
+
+    @Override
+    public String getErrorValidMessage() {
+        return ERROR_VALID_MESSAGE;
     }
 
     @Override

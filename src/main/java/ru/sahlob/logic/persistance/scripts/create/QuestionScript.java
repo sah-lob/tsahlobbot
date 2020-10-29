@@ -9,8 +9,7 @@ import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 import java.util.Collections;
 import java.util.List;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.QUESTION_TEXT;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.GAME_ANSWERS;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
 
@@ -33,6 +32,16 @@ public class QuestionScript implements ScriptMessage {
     @Override
     public String getButtonText() {
         return ALL_BUTTONS;
+    }
+
+    @Override
+    public boolean isScriptValid(String message) {
+        return true;
+    }
+
+    @Override
+    public String getErrorValidMessage() {
+        return ERROR_VALID_MESSAGE;
     }
 
     @Override

@@ -10,6 +10,8 @@ public interface ScriptMessage {
     ScriptNames getName();
     String getMessageText(Person person);
     String getButtonText();
+    boolean isScriptValid(String message);
+    String getErrorValidMessage();
     ScriptNames getStepBack();
     List<ScriptNames> getNext(Game game);
     void doWork(String message, Person person);
