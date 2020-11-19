@@ -35,4 +35,9 @@ public class MemoryPersonsStorage implements PersonsStorage {
             }
             return person;
     }
+
+    @Override
+    public void updatePerson(Person person) {
+
+    }
 }

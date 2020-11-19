@@ -1,44 +1,56 @@
 package ru.sahlob.logic.persistance;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Data
+//@NoArgsConstructor
+@RequiredArgsConstructor
+@EqualsAndHashCode(of = {"id"})
+@Transactional
 public class Person {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
     private Long telegramId;
     private String firstName;
     private String lastName;
     private String userName;
     private int firstMessageTime;
     private int massageCount;
-    private ScriptMessage scriptMessage;
+    private ScriptNames scriptMessageName;
     private boolean isScriptCycle;
-    private ScriptMessage varMessage;
-    private final List<Game> games = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Game> games = new ArrayList<>();
 
 
     public int getScriptCycleCount() {
         return getLastGame().
-                getScriptNameCount(scriptMessage.getName());
+                getScriptNameCount(scriptMessageName);
     }
 
     public int getScriptCycleNum() {
-        return getLastGame().getScriptNameIntroducece(scriptMessage.getName());
+        return getLastGame().getScriptNameIntroducece(scriptMessageName);
     }
 
     public void incrementScriptCycleNum() {
-        getLastGame().incrementIntroduce(scriptMessage.getName());
+        getLastGame().incrementIntroduce(scriptMessageName);
     }
 
     public void incrementScriptCycleNum(ScriptNames scriptNames) {
         getLastGame().incrementIntroduce(scriptNames);
     }
+
     public void addNewGame(Game game) {
         games.add(game);
     }

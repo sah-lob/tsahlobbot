@@ -44,9 +44,17 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
                 .collect(Collectors.toSet());
     }
 
+    public ScriptMessage getScriptMessage(ScriptNames scriptName) {
+        return scriptMessages.get(scriptName);
+    }
+
+    public ScriptMessage getScriptMessage(Person person) {
+        return scriptMessages.get(person.getScriptMessageName());
+    }
+
     @Override
     public ScriptMessage updateScript(Person person, String text) {
-        ScriptMessage scriptMessage = person.getScriptMessage();
+        ScriptMessage scriptMessage = getScriptMessage(person);
         if (scriptMessage.isScriptValid(text)) {
             scriptMessage.doWork(text, person);
         return text.equals(BACK_BUTTON)
@@ -61,7 +69,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
         ScriptMessage nextScriptMessage;
         if (person.isScriptCycle() && person.getScriptCycleCount() > person.getScriptCycleNum()) {
             person.incrementScriptCycleNum();
-            nextScriptMessage = person.getScriptMessage();
+            nextScriptMessage = getScriptMessage(person);
         } else {
             nextScriptMessage = getNextScriptMessageFromScriptMessages(person, text);
         }
@@ -69,7 +77,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     }
 
     private ScriptMessage getNextScriptMessageFromScriptMessages(Person person, String text) {
-        ScriptMessage scriptMessage = person.getScriptMessage();
+        ScriptMessage scriptMessage =  getScriptMessage(person);
         List<ScriptMessage> sm = getScriptMessagesWithThisText(text);
         ScriptMessage nextScriptMessage = scriptMessage;
         if (sm.isEmpty()) {

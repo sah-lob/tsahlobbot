@@ -53,7 +53,7 @@ public class CountThemeScript implements ScriptMessage {
     @Override
     public void doWork(String message, Person person) {
         person.addNewGame(new Game());
-        person.getLastGame().setCounters(person.getScriptMessage().getName(), Integer.parseInt(message));
+        person.getLastGame().setCounters(person.getScriptMessageName(), Integer.parseInt(message));
         System.out.println(message);
     }
 }

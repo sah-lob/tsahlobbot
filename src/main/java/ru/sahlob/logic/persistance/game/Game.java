@@ -1,20 +1,28 @@
 package ru.sahlob.logic.persistance.game;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Entity
 @Data
+@RequiredArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class Game {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
     private String gameName;
-    private Map<ScriptNames, Integer> counters = new HashMap<>();
-    private Map<ScriptNames, Integer> introduceces = new HashMap<>();
+    @ElementCollection(fetch = FetchType.EAGER) private Map<ScriptNames, Integer> counters = new HashMap<>();
+    @ElementCollection(fetch = FetchType.EAGER) private Map<ScriptNames, Integer> introduceces = new HashMap<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Theme> themes = new ArrayList<>();
 
     public void incrementIntroduce(ScriptNames scriptName) {
