@@ -2,11 +2,9 @@ package ru.sahlob.logic.persistance;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sahlob.logic.persistance.game.Game;
-import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import javax.persistence.*;
@@ -15,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Data
-//@NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Transactional

@@ -1,23 +1,44 @@
 package ru.sahlob;
 
-import lombok.Data;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+import ru.sahlob.configuration.SettingsConfigurationInfo;
+import ru.sahlob.logic.persistance.MainController;
+import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.VarMessage;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import java.util.Scanner;
 
-@Data
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class EntryPointTest {
+
+    @Autowired
+    private MainController mainController;
+    @Autowired
+    private SettingsConfigurationInfo settingsConfigurationInfo;
 
     @Test
     void onUpdateReceivedTest() {
-        Update update = Mockito.mock(Update.class);
-        Message message = Mockito.mock(Message.class);
-        when(update.getMessage()).thenReturn(message);
-        assertTrue(true);
+        var person = new Person();
+        person.setTelegramId(-1L);
+        person.setFirstName("TestName");
+        person.setLastName("TestLastName");
+        person.setUserName("testUserName");
+        var chatId = -2L;
+        VarMessage varMessage = null;
+        while (true) {
+            String txt = "asdf";
+            varMessage = mainController.startLogic(person, txt, chatId);
+            System.out.println("-----------------------------------------------------");
+            System.out.println(varMessage.getText());
+            System.out.println(varMessage.getButtonsText());
+            System.out.println("-----------------------------------------------------");
+        }
     }
 
 }
