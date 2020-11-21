@@ -6,13 +6,12 @@ import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
 @Component
-public class PlayGameScript implements ScriptMessage {
+public class OpponentChooseScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
@@ -30,8 +29,14 @@ public class PlayGameScript implements ScriptMessage {
     }
 
     @Override
+    public Set<String> additionalButton() {
+        return new HashSet<>(Arrays.asList(PLAY_ONE_PLAYER_BUTTON, PLAY_WITH_FRIENDS_BUTTON));
+    }
+
+    @Override
     public boolean isScriptValid(String message) {
-        return false;
+        return true;
+//        return message.equals(PLAY_ONE_PLAYER_BUTTON) || message.equals(PLAY_WITH_FRIENDS_BUTTON);
     }
 
     @Override

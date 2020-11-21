@@ -6,7 +6,9 @@ import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
@@ -26,6 +28,11 @@ public class StartScript implements ScriptMessage {
     @Override
     public String getButtonText() {
         return START_BUTTON;
+    }
+
+    @Override
+    public Set<String> additionalButton() {
+        return Collections.EMPTY_SET;
     }
 
     @Override

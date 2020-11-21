@@ -4,13 +4,12 @@ import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.game.Answer;
 import ru.sahlob.logic.persistance.game.Game;
-import ru.sahlob.logic.persistance.game.Question;
-import ru.sahlob.logic.persistance.game.Theme;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
@@ -38,6 +37,11 @@ public class AnswersScript implements ScriptMessage {
     }
 
     @Override
+    public Set<String> additionalButton() {
+        return Collections.EMPTY_SET;
+    }
+
+    @Override
     public boolean isScriptValid(String message) {
         return true;
     }
@@ -57,13 +61,13 @@ public class AnswersScript implements ScriptMessage {
         if (game == null) {
             return Collections.singletonList(COUNT_ANSWERS);
         }
-        List<Theme> themes = game.getThemes();
-        List<Question> questions = themes.get(themes.size() - 1).getQuestions();
-        List<Answer> answers = questions.get(questions.size() - 1).getAnswers();
+        var themes = game.getThemes();
+        var questions = themes.get(themes.size() - 1).getQuestions();
+        var  answers = questions.get(questions.size() - 1).getAnswers();
 
-        int generalCountThemes = game.getScriptNameCount(COUNT_THEMES);
-        int generalCountQuestions = game.getScriptNameCount(COUNT_QUESTIONS);
-        int generalCountAnswers = game.getScriptNameCount(COUNT_ANSWERS);
+        var generalCountThemes = game.getScriptNameCount(COUNT_THEMES);
+        var generalCountQuestions = game.getScriptNameCount(COUNT_QUESTIONS);
+        var generalCountAnswers = game.getScriptNameCount(COUNT_ANSWERS);
 
         if (answers.size() < generalCountAnswers) {
             return Collections.singletonList(GAME_ANSWERS);

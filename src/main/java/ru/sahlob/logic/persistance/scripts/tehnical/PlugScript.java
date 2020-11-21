@@ -7,6 +7,7 @@ import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
@@ -26,6 +27,11 @@ public class PlugScript implements ScriptMessage {
     @Override
     public String getButtonText() {
         return PLUG_GAME_BUTTON;
+    }
+
+    @Override
+    public Set<String> additionalButton() {
+        return Collections.EMPTY_SET;
     }
 
     @Override

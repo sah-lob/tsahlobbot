@@ -8,6 +8,7 @@ import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbers;
@@ -28,6 +29,11 @@ public class CountQuestionsScript implements ScriptMessage {
     @Override
     public String getButtonText() {
         return ALL_BUTTONS;
+    }
+
+    @Override
+    public Set<String> additionalButton() {
+        return Collections.EMPTY_SET;
     }
 
     @Override
