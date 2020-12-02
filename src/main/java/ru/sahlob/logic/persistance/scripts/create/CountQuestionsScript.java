@@ -52,7 +52,7 @@ public class CountQuestionsScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Game game) {
+    public List<ScriptNames> getNext(Game game, Person person) {
         return Collections.singletonList(ScriptNames.COUNT_ANSWERS);
     }
 

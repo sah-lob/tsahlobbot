@@ -1,63 +1,64 @@
-package ru.sahlob.logic.persistance.scripts.create;
+package ru.sahlob.logic.persistance.scripts.play;
 
-import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATED_GAMES_TEXT;
 
-@Component
-public class ThemeScript implements ScriptMessage {
+public class CreatedGamesScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.GAME_THEMES;
+        return ScriptNames.CREATED_GAMES;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return THEME_GAME_TEXT + " " + (person.getLastGame().getThemes().size() + 1);
+        String messageText = CREATED_GAMES_TEXT + "\n";
+        for (Game x : person.getGames()) {
+            messageText = messageText + "\n" + "id: " + x.getId() + " name: " + x.getGameName();
+        }
+
+        return messageText;
     }
 
     @Override
     public String getButtonText() {
-        return ALL_BUTTONS;
+        return null;
     }
 
     @Override
     public Set<String> additionalButton() {
-        return Collections.EMPTY_SET;
+        return null;
     }
 
     @Override
     public boolean isScriptValid(String message) {
-        return true;
+        return false;
     }
 
     @Override
     public String getErrorValidMessage() {
-        return ERROR_VALID_MESSAGE;
+        return null;
     }
 
     @Override
     public ScriptNames getStepBack() {
-        return ScriptNames.START;
+        return null;
     }
 
     @Override
     public List<ScriptNames> getNext(Game game, Person person) {
-        return Collections.singletonList(ScriptNames.GAME_QUESTIONS);
+        return null;
     }
 
     @Override
     public void doWork(String message, Person person) {
-        person.getLastGame().addTheme(message);
-        System.out.println(message);
+
     }
 }

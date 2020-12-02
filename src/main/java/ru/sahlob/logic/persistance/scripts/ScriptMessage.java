@@ -15,6 +15,6 @@ public interface ScriptMessage {
     boolean isScriptValid(String message);
     String getErrorValidMessage();
     ScriptNames getStepBack();
-    List<ScriptNames> getNext(Game game);
+    List<ScriptNames> getNext(Game game, Person person);
     void doWork(String message, Person person);
 }

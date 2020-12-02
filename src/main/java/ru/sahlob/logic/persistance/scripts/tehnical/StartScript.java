@@ -51,8 +51,12 @@ public class StartScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Game game) {
-        return Arrays.asList(ScriptNames.PLAY, ScriptNames.COUNT_THEMES);
+    public List<ScriptNames> getNext(Game game, Person person) {
+        var list =  Arrays.asList(ScriptNames.PLAY, ScriptNames.COUNT_THEMES);
+        if (!person.getGames().isEmpty()) {
+            list.add(ScriptNames.CREATED_GAMES);
+        }
+        return list;
     }
 
     @Override

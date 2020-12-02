@@ -35,8 +35,7 @@ public class OpponentChooseScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message) {
-        return true;
-//        return message.equals(PLAY_ONE_PLAYER_BUTTON) || message.equals(PLAY_WITH_FRIENDS_BUTTON);
+        return message.equals(PLAY_ONE_PLAYER_BUTTON) || message.equals(PLAY_WITH_FRIENDS_BUTTON);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class OpponentChooseScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Game game) {
+    public List<ScriptNames> getNext(Game game, Person person) {
         return Collections.singletonList(ScriptNames.PLUG);
     }
 

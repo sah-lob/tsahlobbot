@@ -1,8 +1,10 @@
 package ru.sahlob.logic.persistance.scripts.tehnical;
 
+/**
+ * Добавлять новые скрипты исключительно в конец, иначе слетит база данных.
+ */
 public enum ScriptNames {
  START,
-
 
  //create game
  COUNT_THEMES,
@@ -18,5 +20,6 @@ public enum ScriptNames {
  // play game
  PLAY,
 // OPPONENT_CHOOSE,
- PLUG
+ PLUG,
+ CREATED_GAMES
 }

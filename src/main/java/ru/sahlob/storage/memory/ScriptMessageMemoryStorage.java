@@ -36,12 +36,16 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
 
     @Override
     public Set<String> getNextButtons(ScriptMessage scriptMessage) {
-        return scriptMessage
+        var buttons = scriptMessage
                 .getNext(null)
                 .stream()
                 .map(x -> scriptMessages.get(x)
                         .getButtonText())
                 .collect(Collectors.toSet());
+        if(scriptMessage.additionalButton() != null && scriptMessage.additionalButton().size() > 0) {
+            buttons.addAll(scriptMessage.additionalButton());
+        }
+        return buttons;
     }
 
     public ScriptMessage getScriptMessage(ScriptNames scriptName) {

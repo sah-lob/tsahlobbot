@@ -15,6 +15,7 @@ public class ScriptMessageText {
     public static final String RIGHT_ANSWER_TEXT = "Введите ПРАВИЛЬНЫЙ ответ";
     public static final String PLAY_GAME_TEXT = "Как именно вы хотите играть?";
     public static final String PLUG_GAME_TEXT = "Текст заглушки";
+    public static final String CREATED_GAMES_TEXT = "Список созданных вами игр: ";
 
     public static final String ERROR_VALID_MESSAGE = "Введенный текст не валидный";
 
@@ -26,6 +27,8 @@ public class ScriptMessageText {
     public static final String PLUG_GAME_BUTTON = "Заглушка";
     public static final String PLAY_ONE_PLAYER_BUTTON = "В одиноку";
     public static final String PLAY_WITH_FRIENDS_BUTTON = "С друзьями";
+    public static final String PLAY_WITH_BOT_BUTTON = "С ботом ";
+    public static final String CREATED_GAMES_BUTTON = "Созданные мною игры";
 
 
 
