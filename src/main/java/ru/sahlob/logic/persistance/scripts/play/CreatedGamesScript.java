@@ -53,7 +53,7 @@ public class CreatedGamesScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Game game, Person person) {
+    public List<ScriptNames> getNext(Person person) {
         return null;
     }
 

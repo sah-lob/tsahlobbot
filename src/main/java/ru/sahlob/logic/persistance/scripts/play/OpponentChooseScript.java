@@ -49,7 +49,7 @@ public class OpponentChooseScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Game game, Person person) {
+    public List<ScriptNames> getNext(Person person) {
         return Collections.singletonList(ScriptNames.PLUG);
     }
 

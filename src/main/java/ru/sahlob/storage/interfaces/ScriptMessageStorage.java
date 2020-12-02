@@ -9,7 +9,7 @@ import java.util.Set;
 public interface ScriptMessageStorage {
     ScriptMessage getStartMessage();
     ScriptMessage updateScript(Person person, String text);
-    Set<String> getNextButtons(ScriptMessage scriptMessage);
+    Set<String> getNextButtons(ScriptMessage scriptMessage, Person person);
     ScriptMessage getScriptMessage(ScriptNames scriptName);
     ScriptMessage getScriptMessage(Person person);
 }

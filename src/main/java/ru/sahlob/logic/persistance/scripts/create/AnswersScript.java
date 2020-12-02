@@ -57,7 +57,8 @@ public class AnswersScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Game game, Person person) {
+    public List<ScriptNames> getNext(Person person) {
+        var game = person.getLastGame();
         if (game == null) {
             return Collections.singletonList(COUNT_ANSWERS);
         }

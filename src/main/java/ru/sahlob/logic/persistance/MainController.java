@@ -28,7 +28,7 @@ public class MainController {
         personsStorage.updatePerson(person);
         return new VarMessage(scriptMessageStorage.getScriptMessage(person).getMessageText(person),
                 scriptMessageStorage
-                        .getNextButtons(scriptMessageStorage.getScriptMessage(person))
+                        .getNextButtons(scriptMessageStorage.getScriptMessage(person), person)
                         .stream()
                         .filter(x -> !x.equals(ALL_BUTTONS))
                         .collect(Collectors.toSet()),

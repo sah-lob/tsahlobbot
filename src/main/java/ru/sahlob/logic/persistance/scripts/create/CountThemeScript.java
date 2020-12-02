@@ -32,7 +32,7 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public Set<String> additionalButton() {
+    public Set additionalButton() {
         return Collections.EMPTY_SET;
     }
 
@@ -52,7 +52,7 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Game game, Person person) {
+    public List<ScriptNames> getNext(Person person) {
         return Collections.singletonList(ScriptNames.COUNT_QUESTIONS);
     }
 

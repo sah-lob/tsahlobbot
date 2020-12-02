@@ -35,9 +35,9 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     }
 
     @Override
-    public Set<String> getNextButtons(ScriptMessage scriptMessage) {
+    public Set<String> getNextButtons(ScriptMessage scriptMessage, Person person) {
         var buttons = scriptMessage
-                .getNext(null)
+                .getNext(person)
                 .stream()
                 .map(x -> scriptMessages.get(x)
                         .getButtonText())
@@ -85,10 +85,10 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
         List<ScriptMessage> sm = getScriptMessagesWithThisText(text);
         ScriptMessage nextScriptMessage = scriptMessage;
         if (sm.isEmpty()) {
-            if (scriptMessage.getNext(person.getLastGame()).size() == 1) {
-                nextScriptMessage = scriptMessages.get(scriptMessage.getNext(person.getLastGame()).get(0));
-            } else if (scriptMessage.getNext(person.getLastGame()).size() > 1) {
-                List<ScriptNames> result = scriptMessage.getNext(person.getLastGame());
+            if (scriptMessage.getNext(person).size() == 1) {
+                nextScriptMessage = scriptMessages.get(scriptMessage.getNext(person).get(0));
+            } else if (scriptMessage.getNext(person).size() > 1) {
+                List<ScriptNames> result = scriptMessage.getNext(person);
                 for (ScriptNames scriptNames : result) {
                     Game game = person.getLastGame();
                     if (game.getScriptNameCount(scriptNames) > game.getScriptNameIntroducece(scriptNames)) {
