@@ -16,6 +16,7 @@ public class ScriptMessageText {
     public static final String PLAY_GAME_TEXT = "Как именно вы хотите играть?";
     public static final String PLUG_GAME_TEXT = "Текст заглушки";
     public static final String CREATED_GAMES_TEXT = "Список созданных вами игр: ";
+    public static final String GAME_NAME_TEXT = "Введите название создаваемой вами игры: ";
 
     public static final String ERROR_VALID_MESSAGE = "Введенный текст не валидный";
 

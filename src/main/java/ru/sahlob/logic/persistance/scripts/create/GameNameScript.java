@@ -1,29 +1,33 @@
-package ru.sahlob.logic.persistance.scripts.tehnical;
+package ru.sahlob.logic.persistance.scripts.create;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
 @Component
-public class StartScript implements ScriptMessage {
+public class GameNameScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.START;
+        return ScriptNames.GAME_NAME;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return START_TEXT;
+        return GAME_NAME_TEXT;
     }
 
     @Override
     public String getButtonText() {
-        return START_BUTTON;
+        return CREATE_GAME_BUTTON;
     }
 
     @Override
@@ -33,12 +37,12 @@ public class StartScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message) {
-        return message.equals(CREATE_GAME_BUTTON) || message.equals(PLAY_GAME_BUTTON) || message.equals(CREATED_GAMES_BUTTON);
+        return true;
     }
 
     @Override
     public String getErrorValidMessage() {
-        return null;
+        return ERROR_VALID_MESSAGE;
     }
 
     @Override
@@ -48,15 +52,13 @@ public class StartScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person) {
-        var list = new ArrayList<>(Arrays.asList(ScriptNames.PLAY, ScriptNames.GAME_NAME));
-        if (!person.getGames().isEmpty()) {
-            list.add(ScriptNames.CREATED_GAMES);
-        }
-        return list;
+        return Collections.singletonList(ScriptNames.COUNT_THEMES);
     }
 
     @Override
     public void doWork(String message, Person person) {
+        person.addNewGame(new Game());
+        person.getLastGame().setGameName(message);
         System.out.println(message);
     }
 }

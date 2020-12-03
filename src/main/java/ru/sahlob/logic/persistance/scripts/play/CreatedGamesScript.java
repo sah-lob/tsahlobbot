@@ -1,15 +1,19 @@
 package ru.sahlob.logic.persistance.scripts.play;
 
+import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATED_GAMES_BUTTON;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATED_GAMES_TEXT;
 
+@Component
 public class CreatedGamesScript implements ScriptMessage {
 
     @Override
@@ -23,23 +27,22 @@ public class CreatedGamesScript implements ScriptMessage {
         for (Game x : person.getGames()) {
             messageText = messageText + "\n" + "id: " + x.getId() + " name: " + x.getGameName();
         }
-
         return messageText;
     }
 
     @Override
     public String getButtonText() {
-        return null;
+        return CREATED_GAMES_BUTTON;
     }
 
     @Override
     public Set<String> additionalButton() {
-        return null;
+        return Collections.EMPTY_SET;
     }
 
     @Override
     public boolean isScriptValid(String message) {
-        return false;
+        return true;
     }
 
     @Override
@@ -49,16 +52,16 @@ public class CreatedGamesScript implements ScriptMessage {
 
     @Override
     public ScriptNames getStepBack() {
-        return null;
+        return ScriptNames.START;
     }
 
     @Override
     public List<ScriptNames> getNext(Person person) {
-        return null;
+        return Collections.singletonList(ScriptNames.START);
     }
 
     @Override
     public void doWork(String message, Person person) {
-
+        System.out.println(message);
     }
 }

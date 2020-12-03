@@ -21,5 +21,6 @@ public enum ScriptNames {
  PLAY,
 // OPPONENT_CHOOSE,
  PLUG,
- CREATED_GAMES
+ CREATED_GAMES,
+ GAME_NAME
 }

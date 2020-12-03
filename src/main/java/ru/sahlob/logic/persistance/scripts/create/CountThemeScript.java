@@ -2,7 +2,6 @@ package ru.sahlob.logic.persistance.scripts.create;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
-import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
@@ -28,7 +27,7 @@ public class CountThemeScript implements ScriptMessage {
 
     @Override
     public String getButtonText() {
-        return CREATE_GAME_BUTTON;
+        return ALL_BUTTONS;
     }
 
     @Override
@@ -58,7 +57,6 @@ public class CountThemeScript implements ScriptMessage {
 
     @Override
     public void doWork(String message, Person person) {
-        person.addNewGame(new Game());
         person.getLastGame().setCounters(person.getScriptMessageName(), Integer.parseInt(message));
         System.out.println(message);
     }
