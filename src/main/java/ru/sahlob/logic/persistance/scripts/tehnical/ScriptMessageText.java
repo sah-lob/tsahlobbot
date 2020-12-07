@@ -30,7 +30,6 @@ public class ScriptMessageText {
     public static final String PLAY_WITH_FRIENDS_BUTTON = "С друзьями";
     public static final String PLAY_WITH_BOT_BUTTON = "С ботом ";
     public static final String CREATED_GAMES_BUTTON = "Созданные мною игры";
-
-
+    public static final String PLAYER_ID_BUTTON = "Мой id";
 
 }

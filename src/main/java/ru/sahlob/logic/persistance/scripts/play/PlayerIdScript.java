@@ -1,30 +1,34 @@
-package ru.sahlob.logic.persistance.scripts.tehnical;
+package ru.sahlob.logic.persistance.scripts.play;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLAYER_ID_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.PLAYER_ID;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
 
 @Component
-public class StartScript implements ScriptMessage {
+public class PlayerIdScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.START;
+        return PLAYER_ID;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return START_TEXT;
+        return "Ваш id: " + person.getId();
     }
 
     @Override
     public String getButtonText() {
-        return START_BUTTON;
+        return PLAYER_ID_BUTTON;
     }
 
     @Override
@@ -34,10 +38,7 @@ public class StartScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message) {
-        return message.equals(CREATE_GAME_BUTTON)
-               || message.equals(PLAY_GAME_BUTTON)
-               || message.equals(CREATED_GAMES_BUTTON)
-               || message.equals(PLAYER_ID_BUTTON);
+        return true;
     }
 
     @Override
@@ -47,16 +48,12 @@ public class StartScript implements ScriptMessage {
 
     @Override
     public ScriptNames getStepBack() {
-        return ScriptNames.START;
+        return START;
     }
 
     @Override
     public List<ScriptNames> getNext(Person person) {
-        var list = new ArrayList<>(Arrays.asList(PLAY, GAME_NAME, PLAYER_ID));
-        if (!person.getGames().isEmpty()) {
-            list.add(ScriptNames.CREATED_GAMES);
-        }
-        return list;
+        return Collections.singletonList(ScriptNames.START);
     }
 
     @Override
