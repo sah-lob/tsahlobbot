@@ -29,6 +29,8 @@ public class Person {
     private boolean isScriptCycle;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Game> games = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Game friendsGame;
 
 
     public int getScriptCycleCount() {
@@ -51,6 +53,7 @@ public class Person {
     public void addNewGame(Game game) {
         games.add(game);
     }
+
     public Game getLastGame() {
         return games.get(games.size() - 1);
     }

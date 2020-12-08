@@ -11,6 +11,7 @@ import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbers;
+import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbersBetweenInRange;
 
 @Component
 public class CountAnswerScript implements ScriptMessage {
@@ -37,7 +38,7 @@ public class CountAnswerScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message) {
-        return checkTheStringContainsOnlyNumbers(message);
+        return checkTheStringContainsOnlyNumbersBetweenInRange(message, 2, 4);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class CountAnswerScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person) {
-        return Collections.singletonList(ScriptNames.GAME_THEMES);
+        return Collections.singletonList(ScriptNames.START_QUESTION_PRICE);
     }
 
     @Override

@@ -24,6 +24,8 @@ public class Game {
     @ElementCollection(fetch = FetchType.EAGER) private Map<ScriptNames, Integer> introduceces = new HashMap<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Theme> themes = new ArrayList<>();
+    private Integer startQuestionPrice = -1;
+    private Integer stepQuestionPrice = -1;
 
     public void incrementIntroduce(ScriptNames scriptName) {
         introduceces.put(scriptName,

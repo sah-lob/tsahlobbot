@@ -4,26 +4,26 @@ import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
+import ru.sahlob.util.Utils;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
-import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbers;
-import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbersBetweenInRange;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
 
 @Component
-public class CountThemeScript implements ScriptMessage {
+public class StartQuestionPriceScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.COUNT_THEMES;
+        return ScriptNames.START_QUESTION_PRICE;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return COUNT_THEME_GAME_TEXT;
+        return "Введите начальную стоимость вопросов \nМинимум 1 \n Максимум 1000";
     }
 
     @Override
@@ -32,33 +32,34 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public Set additionalButton() {
-        return Collections.EMPTY_SET;
+    public Set<String> additionalButton() {
+        return Collections.emptySet();
     }
 
     @Override
     public boolean isScriptValid(String message) {
-        return checkTheStringContainsOnlyNumbersBetweenInRange(message, 1, 6);
+        return Utils.checkTheStringContainsOnlyNumbersBetweenInRange(message, 1, 1000);
     }
 
     @Override
     public String getErrorValidMessage() {
-        return ERROR_VALID_MESSAGE;
+        return "Что-то вы ввели не так=(";
     }
 
     @Override
     public ScriptNames getStepBack() {
-        return ScriptNames.START;
+        return START;
     }
 
     @Override
     public List<ScriptNames> getNext(Person person) {
-        return Collections.singletonList(ScriptNames.COUNT_QUESTIONS);
+        return Collections.singletonList(ScriptNames.STEP_QUESTION_PRICE);
     }
 
     @Override
     public void doWork(String message, Person person) {
-        person.getLastGame().setCounters(person.getScriptMessageName(), Integer.parseInt(message));
-        System.out.println(message);
+        System.out.println("start price: " + message);
+        var price = Integer.parseInt(message);
+        person.getLastGame().setStartQuestionPrice(price);
     }
 }
