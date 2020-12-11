@@ -51,8 +51,8 @@ public class PlayWithFriendsScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Person person) {
-        return Collections.singletonList(PLUG);
+    public List<ScriptNames> getNext(Person person, String message) {
+        return Collections.singletonList(CREATE_ROOM);
     }
 
     @Override

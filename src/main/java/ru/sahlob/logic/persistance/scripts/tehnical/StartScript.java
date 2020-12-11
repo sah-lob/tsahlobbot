@@ -51,7 +51,7 @@ public class StartScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Person person) {
+    public List<ScriptNames> getNext(Person person, String message) {
         var list = new ArrayList<>(Arrays.asList(PLAY, GAME_NAME, PLAYER_ID));
         if (!person.getGames().isEmpty()) {
             list.add(ScriptNames.CREATED_GAMES);

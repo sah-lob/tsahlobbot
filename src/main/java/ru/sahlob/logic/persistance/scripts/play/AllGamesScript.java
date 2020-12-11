@@ -1,44 +1,56 @@
 package ru.sahlob.logic.persistance.scripts.play;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
+import ru.sahlob.storage.db.DBGamesStorage;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLAYER_ID_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.PLAYER_ID;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_GAMES;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.BACK_BUTTON;
 
 @Component
-public class PlayerIdScript implements ScriptMessage {
+@Data
+public class AllGamesScript implements ScriptMessage {
+
+    private final DBGamesStorage dbGamesStorage;
 
     @Override
     public ScriptNames getName() {
-        return PLAYER_ID;
+        return ScriptNames.ALL_GAMES;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return "Ваш id: " + person.getId();
+        AtomicReference<String> mes = new AtomicReference<>("");
+        var list = dbGamesStorage.getAllGames();
+        list.forEach(x -> mes.set(
+                mes.get()
+                + "\n" +
+                "Имя: " + x.getGameName()
+                + " id: " + x.getId()));
+        return mes.get();
     }
 
     @Override
     public String getButtonText() {
-        return PLAYER_ID_BUTTON;
+        return ALL_GAMES;
     }
 
     @Override
     public Set<String> additionalButton() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 
     @Override
     public boolean isScriptValid(String message) {
-        return true;
+        return message.equals(BACK_BUTTON);
     }
 
     @Override
@@ -48,12 +60,12 @@ public class PlayerIdScript implements ScriptMessage {
 
     @Override
     public ScriptNames getStepBack() {
-        return START;
+        return ScriptNames.CREATE_ROOM;
     }
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(ScriptNames.START);
+        return Collections.emptyList();
     }
 
     @Override

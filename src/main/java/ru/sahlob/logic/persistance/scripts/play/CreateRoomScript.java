@@ -1,35 +1,33 @@
-package ru.sahlob.logic.persistance.scripts.create;
+package ru.sahlob.logic.persistance.scripts.play;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
-import ru.sahlob.util.Utils;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.STEP_QUESTION_PRICE;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATE_ROOM_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
 
 @Component
-public class StepQuestionPriceScript implements ScriptMessage {
+public class CreateRoomScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return STEP_QUESTION_PRICE;
+        return CREATE_ROOM;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return "Введите шаг цены у вопросов\nМинимум 1\n Максимум 1000";
+        return "Выберете игру. Введите id, посмотрите топ сыгранных игр, или все созданные игры.[топ игр, все игры]";
     }
 
     @Override
     public String getButtonText() {
-        return ALL_BUTTONS;
+        return CREATE_ROOM_BUTTON;
     }
 
     @Override
@@ -39,12 +37,12 @@ public class StepQuestionPriceScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message) {
-        return Utils.checkTheStringContainsOnlyNumbersBetweenInRange(message, 1, 1000);
+        return true;
     }
 
     @Override
     public String getErrorValidMessage() {
-        return "Что-то вы ввели не так=(";
+        return null;
     }
 
     @Override
@@ -54,13 +52,11 @@ public class StepQuestionPriceScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(ScriptNames.GAME_THEMES);
+        return Collections.singletonList(ALL_GAMES);
     }
 
     @Override
     public void doWork(String message, Person person) {
-        System.out.println("step price: " + message);
-        var step = Integer.parseInt(message);
-        person.getLastGame().setStepQuestionPrice(step);
+        System.out.println(message);
     }
 }

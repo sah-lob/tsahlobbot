@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
-import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbers;
 import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbersBetweenInRange;
 
 @Component
@@ -52,7 +51,7 @@ public class CountAnswerScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Person person) {
+    public List<ScriptNames> getNext(Person person, String message) {
         return Collections.singletonList(ScriptNames.START_QUESTION_PRICE);
     }
 

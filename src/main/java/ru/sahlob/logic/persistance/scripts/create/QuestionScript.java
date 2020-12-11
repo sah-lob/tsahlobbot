@@ -55,7 +55,7 @@ public class QuestionScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Person person) {
+    public List<ScriptNames> getNext(Person person, String message) {
         return Collections.singletonList(GAME_ANSWERS);
     }
 

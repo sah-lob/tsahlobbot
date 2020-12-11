@@ -50,7 +50,7 @@ public class ThemeScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Person person) {
+    public List<ScriptNames> getNext(Person person, String message) {
         return Collections.singletonList(ScriptNames.GAME_QUESTIONS);
     }
 

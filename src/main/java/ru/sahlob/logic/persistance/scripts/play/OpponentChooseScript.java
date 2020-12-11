@@ -29,7 +29,7 @@ public class OpponentChooseScript implements ScriptMessage {
 
     @Override
     public Set<String> additionalButton() {
-        return new HashSet<>(Arrays.asList(PLAY_ONE_PLAYER_BUTTON, PLAY_WITH_FRIENDS_BUTTON));
+        return Collections.emptySet();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class OpponentChooseScript implements ScriptMessage {
     }
 
     @Override
-    public List<ScriptNames> getNext(Person person) {
+    public List<ScriptNames> getNext(Person person, String message) {
         return Collections.singletonList(ScriptNames.PLAY_WITH_FRIENDS);
     }
 
