@@ -22,4 +22,8 @@ public class DBRoomsStorage {
 //        room = roomsRepository.save(room);
         return room;
     }
+
+    public void deleteRoomByID(Person person) {
+
+    }
 }

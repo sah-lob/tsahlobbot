@@ -50,8 +50,7 @@ public class QuestionScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return START;
+    public void doBackWork(String msg, Person person) {
     }
 
     @Override

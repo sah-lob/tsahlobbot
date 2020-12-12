@@ -60,8 +60,10 @@ public class CreateRoomScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return START;
+    public void doBackWork(String msg, Person person) {
+        var roomId = person.getRoom().getId();
+        person.setRoom(null);
+//        dbRoomsStorage
     }
 
     @Override

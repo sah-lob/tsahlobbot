@@ -23,7 +23,7 @@ public class RoomScript implements ScriptMessage {
 
     @Override
     public String getMessageText(Person person) {
-        return "Комната создана. Ожидайте пока подключатся другие игроки.";
+        return "Комната создана. id комнаты: " + person.getRoom().getId() + ". Сообщите id комнаты другим игрокам и жидайте пока подключатся другие игроки.";
     }
 
     @Override
@@ -47,8 +47,8 @@ public class RoomScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return null;
+    public void doBackWork(String msg, Person person) {
+
     }
 
     @Override

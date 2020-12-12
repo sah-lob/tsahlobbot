@@ -59,8 +59,8 @@ public class AllGamesScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return ScriptNames.CREATE_ROOM;
+    public void doBackWork(String msg, Person person) {
+
     }
 
     @Override

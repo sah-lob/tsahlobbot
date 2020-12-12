@@ -47,8 +47,8 @@ public class StartQuestionPriceScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return START;
+    public void doBackWork(String msg, Person person) {
+
     }
 
     @Override

@@ -51,9 +51,7 @@ public class AnswersScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return START;
-    }
+    public void doBackWork(String msg, Person person) {}
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {

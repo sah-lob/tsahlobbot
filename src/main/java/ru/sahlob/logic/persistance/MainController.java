@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import ru.sahlob.storage.MainPersonsStorage;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
@@ -22,6 +23,7 @@ public class MainController {
     public VarMessage startLogic(Person person, String txt, long chatId) {
         person = personsStorage.getPerson(person);
         if (person.getScriptMessageName() == null) {
+            person.setPreviousScriptMessageNameList(new ArrayList<>());
             person.setScriptMessageName(scriptMessageStorage.getStartMessage().getName());
         } else {
             person.setScriptMessageName(scriptMessageStorage.updateScript(person, txt).getName());

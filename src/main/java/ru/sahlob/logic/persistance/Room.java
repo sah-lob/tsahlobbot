@@ -21,7 +21,7 @@ public class Room {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Game game;
 
-    @OneToMany(mappedBy="room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="room", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Person> players = new HashSet<>();
 
     public void addPlayer(Person player) {

@@ -46,8 +46,7 @@ public class PlayWithFriendsScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return CREATED_GAMES;
+    public void doBackWork(String msg, Person person) {
     }
 
     @Override

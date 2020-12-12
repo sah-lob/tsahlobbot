@@ -11,6 +11,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
+
 @Entity
 @Data
 @RequiredArgsConstructor
@@ -26,10 +28,12 @@ public class Person {
     private int firstMessageTime;
     private int massageCount;
     private ScriptNames scriptMessageName;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<ScriptNames> previousScriptMessageNameList;
     private boolean isScriptCycle;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Game> games = new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Room room;
 
 
@@ -56,5 +60,22 @@ public class Person {
 
     public Game getLastGame() {
         return games.get(games.size() - 1);
+    }
+
+    public ScriptNames getLastPreviousScriptName() {
+        if (previousScriptMessageNameList.size() >0) {
+            return previousScriptMessageNameList.get(previousScriptMessageNameList.size() - 1);
+        } else {
+            return START;
+        }
+    }
+
+    public void addPreviousScriptName(ScriptNames scriptNames) {
+        previousScriptMessageNameList.add(scriptNames);
+    }
+
+    public void deleteLastPreviousScriptName() {
+        if (!previousScriptMessageNameList.isEmpty())
+            previousScriptMessageNameList.remove(previousScriptMessageNameList.size() - 1);
     }
 }

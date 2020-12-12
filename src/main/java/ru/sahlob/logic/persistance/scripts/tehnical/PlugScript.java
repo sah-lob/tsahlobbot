@@ -44,8 +44,7 @@ public class PlugScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return ScriptNames.START;
+    public void doBackWork(String msg, Person person) {
     }
 
     @Override

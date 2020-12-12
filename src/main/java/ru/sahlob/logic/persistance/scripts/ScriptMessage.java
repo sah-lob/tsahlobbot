@@ -13,7 +13,7 @@ public interface ScriptMessage {
     Set<String> additionalButton();
     boolean isScriptValid(String message);
     String getErrorValidMessage();
-    ScriptNames getStepBack();
+    void doBackWork(String message, Person person);
     List<ScriptNames> getNext(Person person, String message);
     void doWork(String message, Person person);
 }

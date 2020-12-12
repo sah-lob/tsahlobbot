@@ -51,9 +51,7 @@ public class CreatedGamesScript implements ScriptMessage {
     }
 
     @Override
-    public ScriptNames getStepBack() {
-        return ScriptNames.START;
-    }
+    public void doBackWork(String msg, Person person) { }
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
