@@ -1,19 +1,30 @@
 package ru.sahlob.logic.persistance.scripts.play;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
+import ru.sahlob.storage.db.DBGamesStorage;
+import ru.sahlob.storage.db.DBRoomsStorage;
+import ru.sahlob.util.Utils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_GAMES_BUTTON;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATE_ROOM_BUTTON;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
 
 @Component
+@Data
 public class CreateRoomScript implements ScriptMessage {
+
+    private final DBGamesStorage dbGamesStorage;
+    private final DBRoomsStorage dbRoomsStorage;
+
 
     @Override
     public ScriptNames getName() {
@@ -37,7 +48,10 @@ public class CreateRoomScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message) {
-        return true;
+        if (Utils.checkTheStringContainsOnlyNumbers(message)) {
+            return dbGamesStorage.existsGameById(Long.parseLong(message));
+        }
+        return message.equals(ALL_GAMES_BUTTON);
     }
 
     @Override
@@ -52,11 +66,14 @@ public class CreateRoomScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(ALL_GAMES);
+        return Arrays.asList(ALL_GAMES, ROOM);
     }
 
     @Override
     public void doWork(String message, Person person) {
+        if (Utils.checkTheStringContainsOnlyNumbers(message)) {
+            dbRoomsStorage.createRoom(person, dbGamesStorage.getGameByID(Integer.parseInt(message)));
+        }
         System.out.println(message);
     }
 }

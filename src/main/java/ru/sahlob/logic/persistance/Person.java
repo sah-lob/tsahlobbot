@@ -30,7 +30,7 @@ public class Person {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Game> games = new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Game friendsGame;
+    private Room room;
 
 
     public int getScriptCycleCount() {

@@ -17,4 +17,12 @@ public class DBGamesStorage {
     public List<Game> getAllGames() {
         return (List<Game>) gamesRepository.findAll();
     }
+
+    public boolean existsGameById(Long id) {
+        return gamesRepository.existsById(id);
+    }
+
+    public Game getGameByID(int id) {
+        return gamesRepository.findFirstById(id);
+    }
 }

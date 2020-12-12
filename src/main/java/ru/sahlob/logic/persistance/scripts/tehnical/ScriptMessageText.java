@@ -21,6 +21,7 @@ public class ScriptMessageText {
     public static final String ERROR_VALID_MESSAGE = "Введенный текст не валидный";
 
     public static final String ALL_BUTTONS = "All_COUNT_BUTTONS";
+    public static final String ALL_NUM = "ALL_NUM";
     public static final String START_BUTTON = "Начало";
     public static final String PLAY_GAME_BUTTON = "Начать игру";
     public static final String CREATE_GAME_BUTTON = "Создать игру";
@@ -32,6 +33,6 @@ public class ScriptMessageText {
     public static final String CREATED_GAMES_BUTTON = "Созданные мною игры";
     public static final String PLAYER_ID_BUTTON = "Мой id";
     public static final String CREATE_ROOM_BUTTON = "Создать комнату";
-    public static final String ALL_GAMES = "Все игры";
+    public static final String ALL_GAMES_BUTTON = "Все игры";
 
 }

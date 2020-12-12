@@ -7,6 +7,7 @@ import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
+import ru.sahlob.util.Utils;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_NUM;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.BACK_BUTTON;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
 
@@ -91,7 +93,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
                 List<ScriptNames> result = scriptMessage.getNext(person, text);
                 for (ScriptNames scriptNames : result) {
                     Game game = person.getLastGame();
-                    if (game.getScriptNameCount(scriptNames) > game.getScriptNameIntroducece(scriptNames)) {
+                    if (game.getScriptNameCount(scriptNames) != null && game.getScriptNameCount(scriptNames) > game.getScriptNameIntroducece(scriptNames)) {
                         nextScriptMessage = scriptMessages.get(scriptNames);
                         break;
                     }
@@ -108,8 +110,8 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
                 .values()
                 .stream()
                 .filter(x ->
-                        x.getButtonText()
-                                .equals(text))
+                        x.getButtonText().equals(text)
+                        || (x.getButtonText().equals(ALL_NUM) && Utils.checkTheStringContainsOnlyNumbers(text)))
                 .collect(Collectors.toList());
     }
 }

@@ -3,13 +3,11 @@ package ru.sahlob.logic.persistance.game;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import ru.sahlob.logic.persistance.Room;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 @Data
@@ -26,6 +24,8 @@ public class Game {
     private List<Theme> themes = new ArrayList<>();
     private Integer startQuestionPrice = -1;
     private Integer stepQuestionPrice = -1;
+    @OneToMany(mappedBy="game", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Room> rooms = new HashSet<>();
 
     public void incrementIntroduce(ScriptNames scriptName) {
         introduceces.put(scriptName,
@@ -34,13 +34,14 @@ public class Game {
                         : introduceces.get(scriptName) + 1);
     }
 
-    public int getScriptNameCount(ScriptNames scriptName) {
-        scriptName = ScriptNames.valueOf(scriptName.name().replaceFirst("GAME", "COUNT"));
+    public Integer getScriptNameCount(ScriptNames scriptName) {
+        scriptName = ScriptNames.valueOf(scriptName.name().replaceFirst("GAME",
+                "COUNT"));
         return counters.get(scriptName);
     }
 
     public int getScriptNameIntroducece(ScriptNames scriptName) {
-        return introduceces.get(scriptName) == null ? 0 : introduceces.get(scriptName);
+        return introduceces.get(scriptName) == null ? -1 : introduceces.get(scriptName);
     }
 
     public void setCounters(ScriptNames names, int num) {

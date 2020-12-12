@@ -1,46 +1,34 @@
 package ru.sahlob.logic.persistance.scripts.play;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
-import ru.sahlob.storage.db.DBGamesStorage;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_GAMES_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.BACK_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_NUM;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.PLUG;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.ROOM;
 
 @Component
-@Data
-public class AllGamesScript implements ScriptMessage {
-
-    private final DBGamesStorage dbGamesStorage;
+public class RoomScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.ALL_GAMES;
+        return ROOM;
     }
 
     @Override
     public String getMessageText(Person person) {
-        AtomicReference<String> mes = new AtomicReference<>("");
-        var list = dbGamesStorage.getAllGames();
-        list.forEach(x -> mes.set(
-                mes.get()
-                + "\n" +
-                "Имя: " + x.getGameName()
-                + " id: " + x.getId()));
-        return mes.get();
+        return "Комната создана. Ожидайте пока подключатся другие игроки.";
     }
 
     @Override
     public String getButtonText() {
-        return ALL_GAMES_BUTTON;
+        return ALL_NUM;
     }
 
     @Override
@@ -50,7 +38,7 @@ public class AllGamesScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message) {
-        return message.equals(BACK_BUTTON);
+        return true;
     }
 
     @Override
@@ -60,12 +48,12 @@ public class AllGamesScript implements ScriptMessage {
 
     @Override
     public ScriptNames getStepBack() {
-        return ScriptNames.CREATE_ROOM;
+        return null;
     }
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.emptyList();
+        return Collections.singletonList(PLUG);
     }
 
     @Override

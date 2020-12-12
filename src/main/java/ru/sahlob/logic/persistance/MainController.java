@@ -9,6 +9,7 @@ import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 import java.util.stream.Collectors;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_NUM;
 
 @Controller
 @Data
@@ -31,6 +32,7 @@ public class MainController {
                         .getNextButtons(scriptMessageStorage.getScriptMessage(person), person)
                         .stream()
                         .filter(x -> !x.equals(ALL_BUTTONS))
+                        .filter(x -> !x.equals(ALL_NUM))
                         .collect(Collectors.toSet()),
                 chatId);
     }
