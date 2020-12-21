@@ -17,6 +17,8 @@ public class ScriptMessageText {
     public static final String PLUG_GAME_TEXT = "Текст заглушки";
     public static final String CREATED_GAMES_TEXT = "Список созданных вами игр: ";
     public static final String GAME_NAME_TEXT = "Введите название создаваемой вами игры: ";
+    public static final String CREATE_ROOM_TEXT = "Введите id комнаты, к которой хотите присоединиться";
+    public static final String START_GAME = "Игра началась";
 
     public static final String ERROR_VALID_MESSAGE = "Введенный текст не валидный";
 
@@ -33,6 +35,8 @@ public class ScriptMessageText {
     public static final String CREATED_GAMES_BUTTON = "Созданные мною игры";
     public static final String PLAYER_ID_BUTTON = "Мой id";
     public static final String CREATE_ROOM_BUTTON = "Создать комнату";
+    public static final String JOIN_ROOM_BUTTON = "Присоединиться к комнате";
     public static final String ALL_GAMES_BUTTON = "Все игры";
+    public static final String START_GAME_BUTTON = "Начинаем игру";
 
 }

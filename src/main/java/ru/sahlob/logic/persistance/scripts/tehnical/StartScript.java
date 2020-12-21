@@ -33,7 +33,7 @@ public class StartScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return message.equals(CREATE_GAME_BUTTON)
                || message.equals(PLAY_GAME_BUTTON)
                || message.equals(CREATED_GAMES_BUTTON)

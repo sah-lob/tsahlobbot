@@ -4,4 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import ru.sahlob.logic.persistance.Room;
 
 public interface RoomsRepository extends CrudRepository<Room, Integer> {
+
+    Room findFirstById(long id);
+    boolean existsById(long id);
 }

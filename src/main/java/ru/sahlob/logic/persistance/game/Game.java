@@ -3,6 +3,7 @@ package ru.sahlob.logic.persistance.game;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import ru.sahlob.logic.persistance.Room;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
@@ -13,10 +14,13 @@ import java.util.*;
 @Data
 @RequiredArgsConstructor
 @EqualsAndHashCode(of = {"id"})
+@ToString(onlyExplicitlyIncluded = true)
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ToString.Include
+    private Long id;
     private String gameName;
     @ElementCollection(fetch = FetchType.EAGER) private Map<ScriptNames, Integer> counters = new HashMap<>();
     @ElementCollection(fetch = FetchType.EAGER) private Map<ScriptNames, Integer> introduceces = new HashMap<>();
@@ -24,8 +28,8 @@ public class Game {
     private List<Theme> themes = new ArrayList<>();
     private Integer startQuestionPrice = -1;
     private Integer stepQuestionPrice = -1;
-    @OneToMany(mappedBy="game", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private Set<Room> rooms = new HashSet<>();
+//    @OneToMany(mappedBy="game", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+//    private Set<Room> rooms = new HashSet<>();
 
     public void incrementIntroduce(ScriptNames scriptName) {
         introduceces.put(scriptName,

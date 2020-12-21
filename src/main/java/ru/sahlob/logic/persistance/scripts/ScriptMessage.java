@@ -11,7 +11,7 @@ public interface ScriptMessage {
     String getMessageText(Person person);
     String getButtonText();
     Set<String> additionalButton();
-    boolean isScriptValid(String message);
+    boolean isScriptValid(String message, Person person);
     String getErrorValidMessage();
     void doBackWork(String message, Person person);
     List<ScriptNames> getNext(Person person, String message);

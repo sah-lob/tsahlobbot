@@ -37,7 +37,7 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return checkTheStringContainsOnlyNumbersBetweenInRange(message, 1, 6);
     }
 

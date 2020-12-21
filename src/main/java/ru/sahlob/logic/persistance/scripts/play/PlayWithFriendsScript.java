@@ -5,6 +5,7 @@ import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class PlayWithFriendsScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return true;
     }
 
@@ -51,7 +52,7 @@ public class PlayWithFriendsScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(CREATE_ROOM);
+        return Arrays.asList(CREATE_ROOM, JOINT_ROOM);
     }
 
     @Override

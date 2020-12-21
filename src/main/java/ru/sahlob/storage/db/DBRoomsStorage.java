@@ -17,13 +17,21 @@ public class DBRoomsStorage {
     public Room createRoom(Person person, Game game) {
         Room room = new Room();
         room.addPlayer(person);
+        room.setCreatedPlayerId(person.getId());
         room.setGame(game);
         person.setRoom(room);
-//        room = roomsRepository.save(room);
         return room;
     }
 
-    public void deleteRoomByID(Person person) {
+    public void deleteRoomByID(Long id) {
+        roomsRepository.delete(getRoomsRepository().findFirstById(id));
+    }
 
+    public Room getRoomByID(long id) {
+       return roomsRepository.findFirstById(id);
+    }
+
+    public boolean isRoomExist(long id) {
+        return roomsRepository.existsById(id);
     }
 }

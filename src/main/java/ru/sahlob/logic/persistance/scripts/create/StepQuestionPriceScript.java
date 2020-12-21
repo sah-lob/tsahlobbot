@@ -38,7 +38,7 @@ public class StepQuestionPriceScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return Utils.checkTheStringContainsOnlyNumbersBetweenInRange(message, 1, 1000);
     }
 

@@ -6,6 +6,7 @@ import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 import ru.sahlob.storage.db.DBGamesStorage;
+import ru.sahlob.storage.db.DBPersonsStorage;
 import ru.sahlob.storage.db.DBRoomsStorage;
 import ru.sahlob.util.Utils;
 
@@ -22,9 +23,9 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
 @Data
 public class CreateRoomScript implements ScriptMessage {
 
+    private final DBPersonsStorage dbPersonsStorage;
     private final DBGamesStorage dbGamesStorage;
     private final DBRoomsStorage dbRoomsStorage;
-
 
     @Override
     public ScriptNames getName() {
@@ -47,7 +48,7 @@ public class CreateRoomScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         if (Utils.checkTheStringContainsOnlyNumbers(message)) {
             return dbGamesStorage.existsGameById(Long.parseLong(message));
         }
@@ -61,9 +62,12 @@ public class CreateRoomScript implements ScriptMessage {
 
     @Override
     public void doBackWork(String msg, Person person) {
-        var roomId = person.getRoom().getId();
+        var room = person.getRoom();
         person.setRoom(null);
-//        dbRoomsStorage
+        dbPersonsStorage.updatePerson(person);
+        if (room.getPlayers().size() <= 1) {
+            dbRoomsStorage.deleteRoomByID(room.getId());
+        }
     }
 
     @Override

@@ -61,23 +61,19 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     @Override
     public ScriptMessage updateScript(Person person, String text) {
         ScriptMessage scriptMessage = getScriptMessage(person);
-        if (scriptMessage.isScriptValid(text) || text.equals(BACK_BUTTON)) {
-            scriptMessage.doWork(text, person);
+        if (scriptMessage.isScriptValid(text, person) || text.equals(BACK_BUTTON)) {
             if (text.equals(BACK_BUTTON)) {
                 ScriptMessage scriptMessage1 = scriptMessages.get(person.getLastPreviousScriptName());
                 scriptMessage1.doBackWork(text, person);
                 person.deleteLastPreviousScriptName();
                 return scriptMessage1;
             } else {
+                scriptMessage.doWork(text, person);
                 person.addPreviousScriptName(person.getScriptMessageName());
                 return getNextScriptMessage(person, text);
             }
-//        return text.equals(BACK_BUTTON)
-//                ? scriptMessages.get(person.getLastPreviousScriptName())
-//                : getNextScriptMessage(person, text);
         }
         return scriptMessage;
-//        scriptMessage.doWork(text, person);
     }
 
     private ScriptMessage getNextScriptMessage(Person person, String text) {

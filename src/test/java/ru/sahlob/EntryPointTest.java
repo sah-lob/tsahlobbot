@@ -32,12 +32,12 @@ class EntryPointTest {
         var chatId = -2L;
         VarMessage varMessage = null;
         while (true) {
-            String txt = "asdf";
-            varMessage = mainController.startLogic(person, txt, chatId);
-            System.out.println("-----------------------------------------------------");
-            System.out.println(varMessage.getText());
-            System.out.println(varMessage.getButtonsText());
-            System.out.println("-----------------------------------------------------");
+//            String txt = "asdf";
+//            varMessage = mainController.startLogic(person, txt, chatId);
+//            System.out.println("-----------------------------------------------------");
+//            System.out.println(varMessage.getText());
+//            System.out.println(varMessage.getButtonsText());
+//            System.out.println("-----------------------------------------------------");
         }
     }
 

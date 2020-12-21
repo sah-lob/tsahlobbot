@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_NUM;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.PLUG;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.ROOM;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
 
 @Component
 public class RoomScript implements ScriptMessage {
@@ -23,6 +22,9 @@ public class RoomScript implements ScriptMessage {
 
     @Override
     public String getMessageText(Person person) {
+        if (person.getLastPreviousScriptMessageName().equals(JOINT_ROOM)) {
+            return "Вы присоединились к комнате. Ждите пока подключатся остальные игроки.";
+        }
         return "Комната создана. id комнаты: " + person.getRoom().getId() + ". Сообщите id комнаты другим игрокам и жидайте пока подключатся другие игроки.";
     }
 
@@ -37,7 +39,7 @@ public class RoomScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return true;
     }
 
@@ -53,7 +55,7 @@ public class RoomScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(PLUG);
+        return Collections.singletonList(START_GAME);
     }
 
     @Override

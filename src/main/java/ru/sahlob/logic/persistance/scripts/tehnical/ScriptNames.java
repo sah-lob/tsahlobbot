@@ -29,5 +29,7 @@ public enum ScriptNames {
  STEP_QUESTION_PRICE,
  CREATE_ROOM,
  ALL_GAMES,
- ROOM
+ ROOM,
+ JOINT_ROOM,
+ START_GAME
 }

@@ -49,7 +49,7 @@ public class AllGamesScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return message.equals(BACK_BUTTON);
     }
 

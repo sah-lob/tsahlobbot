@@ -36,7 +36,7 @@ public class CountAnswerScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return checkTheStringContainsOnlyNumbersBetweenInRange(message, 2, 4);
     }
 

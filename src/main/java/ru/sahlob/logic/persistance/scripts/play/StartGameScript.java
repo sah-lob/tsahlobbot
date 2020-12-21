@@ -1,4 +1,4 @@
-package ru.sahlob.logic.persistance.scripts.create;
+package ru.sahlob.logic.persistance.scripts.play;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
@@ -9,54 +9,54 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
-import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbers;
-import static ru.sahlob.util.Utils.checkTheStringContainsOnlyNumbersBetweenInRange;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_GAME;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_GAME_BUTTON;
 
 @Component
-public class CountQuestionsScript implements ScriptMessage {
+public class StartGameScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.COUNT_QUESTIONS;
+        return ScriptNames.START_GAME;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return COUNT_QUESTIONS_TEXT;
+        return START_GAME;
     }
 
     @Override
     public String getButtonText() {
-        return ALL_BUTTONS;
+        return START_GAME_BUTTON;
     }
 
     @Override
     public Set<String> additionalButton() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 
     @Override
     public boolean isScriptValid(String message, Person person) {
-        return checkTheStringContainsOnlyNumbersBetweenInRange(message, 1, 5);
+        return true;
     }
 
     @Override
     public String getErrorValidMessage() {
-        return ERROR_VALID_MESSAGE;
+        return null;
     }
 
     @Override
-    public void doBackWork(String msg, Person person) {}
+    public void doBackWork(String message, Person person) {
+
+    }
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(ScriptNames.COUNT_ANSWERS);
+        return Collections.singletonList(ScriptNames.PLUG);
     }
 
     @Override
     public void doWork(String message, Person person) {
-        person.getLastGame().setCounters(person.getScriptMessageName(), Integer.parseInt(message));
-        System.out.println(message);
+
     }
 }

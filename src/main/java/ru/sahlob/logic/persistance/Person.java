@@ -3,6 +3,7 @@ package ru.sahlob.logic.persistance;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
@@ -18,9 +19,12 @@ import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
 @RequiredArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Transactional
+@ToString(onlyExplicitlyIncluded = true)
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ToString.Include
+    private Long id;
     private Long telegramId;
     private String firstName;
     private String lastName;
@@ -35,6 +39,8 @@ public class Person {
     private List<Game> games = new ArrayList<>();
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Room room;
+    @Transient
+    private List<VarMessage> varMessagesList = new ArrayList<>();
 
 
     public int getScriptCycleCount() {
@@ -77,5 +83,9 @@ public class Person {
     public void deleteLastPreviousScriptName() {
         if (!previousScriptMessageNameList.isEmpty())
             previousScriptMessageNameList.remove(previousScriptMessageNameList.size() - 1);
+    }
+
+    public ScriptNames getLastPreviousScriptMessageName() {
+        return previousScriptMessageNameList.get(previousScriptMessageNameList.size() - 1);
     }
 }

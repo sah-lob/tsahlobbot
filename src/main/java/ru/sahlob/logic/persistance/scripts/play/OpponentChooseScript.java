@@ -33,7 +33,7 @@ public class OpponentChooseScript implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message) {
+    public boolean isScriptValid(String message, Person person) {
         return message.equals(PLAY_ONE_PLAYER_BUTTON) || message.equals(PLAY_WITH_FRIENDS_BUTTON);
     }
 

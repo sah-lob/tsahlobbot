@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -36,24 +37,30 @@ public class EntryPoint extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         Message msg = update.getMessage() != null ? update.getMessage() : update.getCallbackQuery().getMessage();
-        Person person = getPerson(msg.getFrom(), msg.getChatId());
+        Person person = getPerson(msg.getFrom(), msg.getChat(), msg.getChatId());
         long chatId = msg.getChatId();
         String txt = update.getMessage() != null ? update.getMessage().getText() : update.getCallbackQuery().getData();
         System.out.println("Start message: " + txt);
-        VarMessage varMessage = mainController.startLogic(person, txt, chatId);
-        sendMessage(varMessage);
+        var varMessageList = mainController.startLogic(person, txt, chatId);
+        varMessageList.forEach(x -> {
+            try {
+                sendMessage(x);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
-    private Person getPerson(User user, Long chatID) {
+    private Person getPerson(User user, Chat chat, Long chatID) {
         Person person = new Person();
         person.setTelegramId(chatID);
-        person.setFirstName(user.getFirstName());
-        person.setLastName(user.getLastName());
+        person.setFirstName(chat.getFirstName());
+        person.setLastName(chat.getLastName());
         person.setUserName(user.getUserName());
         return person;
     }
 
-    private void sendMessage(VarMessage varMessage) throws TelegramApiException {
+    public void sendMessage(VarMessage varMessage) throws TelegramApiException {
         execute(new SendMessage()
                 .setChatId(varMessage.getChatId())
                 .setText(varMessage.getText())
