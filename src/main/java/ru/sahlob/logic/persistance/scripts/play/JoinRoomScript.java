@@ -84,7 +84,8 @@ public class JoinRoomScript implements ScriptMessage {
                                 text,
                                 buttons,
                                 x.getTelegramId()));
-            }}
+            }
+        }
         );
         person.setVarMessagesList(varMessages);
         room.addPlayer(person);

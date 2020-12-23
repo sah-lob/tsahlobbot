@@ -44,7 +44,7 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
                 .map(x -> scriptMessages.get(x)
                         .getButtonText())
                 .collect(Collectors.toSet());
-        if(scriptMessage.additionalButton() != null && scriptMessage.additionalButton().size() > 0) {
+        if (scriptMessage.additionalButton() != null && scriptMessage.additionalButton().size() > 0) {
             buttons.addAll(scriptMessage.additionalButton());
         }
         return buttons;

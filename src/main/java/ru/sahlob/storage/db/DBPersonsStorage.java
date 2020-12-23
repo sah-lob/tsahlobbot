@@ -27,6 +27,7 @@ public class DBPersonsStorage implements PersonsStorage {
     public Person getPerson(Person person) {
         var p = getPerson(person.getTelegramId());
         if (p != null) {
+            p.incrementMessageCount();
             return p;
         }
         addPerson(person);

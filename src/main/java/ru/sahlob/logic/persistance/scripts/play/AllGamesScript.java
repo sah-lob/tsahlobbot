@@ -32,8 +32,8 @@ public class AllGamesScript implements ScriptMessage {
         var list = dbGamesStorage.getAllGames();
         list.forEach(x -> mes.set(
                 mes.get()
-                + "\n" +
-                "Имя: " + x.getGameName()
+                + "\n"
+                + "Имя: " + x.getGameName()
                 + " id: " + x.getId()));
         return mes.get();
     }

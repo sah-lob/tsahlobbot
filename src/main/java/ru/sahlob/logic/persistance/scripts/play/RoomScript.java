@@ -1,19 +1,26 @@
 package ru.sahlob.logic.persistance.scripts.play;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.VarMessage;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
+import ru.sahlob.storage.db.DBPersonsStorage;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_NUM;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
 
 @Component
+@Data
 public class RoomScript implements ScriptMessage {
+
+    private final DBPersonsStorage dbPersonsStorage;
 
     @Override
     public ScriptNames getName() {
@@ -40,7 +47,8 @@ public class RoomScript implements ScriptMessage {
 
     @Override
     public boolean isScriptValid(String message, Person person) {
-        return true;
+        return person.getRoom().getCreatedPlayerId().equals(person.getId())
+               && message.equals(START_GAME_BUTTON);
     }
 
     @Override
@@ -55,11 +63,23 @@ public class RoomScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(START_GAME);
+        return Collections.singletonList(ScriptNames.START_GAME);
     }
 
     @Override
     public void doWork(String message, Person person) {
+        var room = person.getRoom();
+        var otherPlayers = room.getPersonWithoutAdmin();
+        var varMessages = new ArrayList<VarMessage>();
+        otherPlayers.forEach(x -> {
+            x.setScriptMessageName(ScriptNames.START_GAME);
+            dbPersonsStorage.updatePerson(x);
+            varMessages.add(
+                    new VarMessage(
+                            "Поехали",
+                            Collections.EMPTY_SET,
+                            x.getTelegramId()));
+        });
         System.out.println(message);
     }
 }

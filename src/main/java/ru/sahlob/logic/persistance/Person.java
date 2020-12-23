@@ -30,14 +30,14 @@ public class Person {
     private String lastName;
     private String userName;
     private int firstMessageTime;
-    private int massageCount;
+    private int massageCount = 0;
     private ScriptNames scriptMessageName;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<ScriptNames> previousScriptMessageNameList;
     private boolean isScriptCycle;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Game> games = new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Room room;
     @Transient
     private List<VarMessage> varMessagesList = new ArrayList<>();
@@ -60,6 +60,10 @@ public class Person {
         getLastGame().incrementIntroduce(scriptNames);
     }
 
+    public void incrementMessageCount() {
+        massageCount = massageCount++;
+    }
+
     public void addNewGame(Game game) {
         games.add(game);
     }
@@ -69,7 +73,7 @@ public class Person {
     }
 
     public ScriptNames getLastPreviousScriptName() {
-        if (previousScriptMessageNameList.size() >0) {
+        if (previousScriptMessageNameList.size() > 0) {
             return previousScriptMessageNameList.get(previousScriptMessageNameList.size() - 1);
         } else {
             return START;
@@ -81,8 +85,9 @@ public class Person {
     }
 
     public void deleteLastPreviousScriptName() {
-        if (!previousScriptMessageNameList.isEmpty())
+        if (!previousScriptMessageNameList.isEmpty()) {
             previousScriptMessageNameList.remove(previousScriptMessageNameList.size() - 1);
+        }
     }
 
     public ScriptNames getLastPreviousScriptMessageName() {

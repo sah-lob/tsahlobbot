@@ -47,7 +47,9 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public void doBackWork(String msg, Person person) {}
+    public void doBackWork(String msg, Person person) {
+
+    }
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
