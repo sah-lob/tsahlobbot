@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import ru.sahlob.logic.persistance.Room;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import javax.persistence.*;
@@ -28,8 +27,6 @@ public class Game {
     private List<Theme> themes = new ArrayList<>();
     private Integer startQuestionPrice = -1;
     private Integer stepQuestionPrice = -1;
-//    @OneToMany(mappedBy="game", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-//    private Set<Room> rooms = new HashSet<>();
 
     public void incrementIntroduce(ScriptNames scriptName) {
         introduceces.put(scriptName,
@@ -57,7 +54,7 @@ public class Game {
     }
 
     public void addQuestionToLastTheme(String question) {
-        getLastTheme().addQuestion(question);
+        getLastTheme().addQuestion(question, startQuestionPrice, stepQuestionPrice);
     }
 
     public void addAnswerToLastQuestion(String answer) {

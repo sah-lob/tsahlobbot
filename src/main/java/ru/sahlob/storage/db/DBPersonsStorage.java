@@ -19,13 +19,17 @@ public class DBPersonsStorage implements PersonsStorage {
     }
 
     @Override
-    public Person getPerson(long telegramId) {
+    public Person getPersonByTelegramId(long telegramId) {
         return personsRepository.getFirstPersonByTelegramId(telegramId);
     }
 
+    public Person getFirstPersonById(long id) {
+        return personsRepository.getFirstPersonById(id);
+    }
+
     @Override
-    public Person getPerson(Person person) {
-        var p = getPerson(person.getTelegramId());
+    public Person getPersonByTelegramId(Person person) {
+        var p = getPersonByTelegramId(person.getTelegramId());
         if (p != null) {
             p.incrementMessageCount();
             return p;

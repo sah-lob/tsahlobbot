@@ -24,8 +24,9 @@ public class Theme {
         this.themeText = themeText;
     }
 
-    public void addQuestion(String question) {
-        questions.add(new Question(question));
+    public void addQuestion(String question, int questionStartPrice, int questionPriceStep) {
+        int price = questions.isEmpty() ? questionStartPrice : questions.size() * questionPriceStep + questionStartPrice;
+        questions.add(new Question(question, price));
     }
 
     public Question getLastQuestion() {

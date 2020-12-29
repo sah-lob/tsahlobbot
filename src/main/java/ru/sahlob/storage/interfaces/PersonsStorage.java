@@ -4,7 +4,7 @@ import ru.sahlob.logic.persistance.Person;
 
 public interface PersonsStorage {
     void addPerson(Person person);
-    Person getPerson(long telegramId);
-    Person getPerson(Person person);
+    Person getPersonByTelegramId(long telegramId);
+    Person getPersonByTelegramId(Person person);
     void updatePerson(Person person);
 }

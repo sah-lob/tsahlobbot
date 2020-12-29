@@ -18,13 +18,13 @@ public class MainPersonsStorage implements PersonsStorage {
     }
 
     @Override
-    public Person getPerson(long telegramId) {
-        return personsStorage.getPerson(telegramId);
+    public Person getPersonByTelegramId(long telegramId) {
+        return personsStorage.getPersonByTelegramId(telegramId);
     }
 
     @Override
-    public Person getPerson(Person person) {
-        return personsStorage.getPerson(person);
+    public Person getPersonByTelegramId(Person person) {
+        return personsStorage.getPersonByTelegramId(person);
     }
 
     public void updatePerson(Person person) {

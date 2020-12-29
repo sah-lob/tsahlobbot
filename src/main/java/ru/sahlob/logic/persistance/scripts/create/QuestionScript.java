@@ -61,7 +61,7 @@ public class QuestionScript implements ScriptMessage {
     @Override
     public void doWork(String message, Person person) {
         var game = person.getLastGame();
-        game.getLastTheme().addQuestion(message);
+        game.getLastTheme().addQuestion(message, game.getStartQuestionPrice(), game.getStepQuestionPrice());
         System.out.println(message);
     }
 }

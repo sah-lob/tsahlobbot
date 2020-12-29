@@ -13,8 +13,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_NUM;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_GAME_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.JOINT_ROOM;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.ROOM;
 
 @Component
 @Data
@@ -69,6 +71,7 @@ public class RoomScript implements ScriptMessage {
     @Override
     public void doWork(String message, Person person) {
         var room = person.getRoom();
+        room.setOrder();
         var otherPlayers = room.getPersonWithoutAdmin();
         var varMessages = new ArrayList<VarMessage>();
         otherPlayers.forEach(x -> {
@@ -80,6 +83,7 @@ public class RoomScript implements ScriptMessage {
                             Collections.EMPTY_SET,
                             x.getTelegramId()));
         });
+        person.setVarMessagesList(varMessages);
         System.out.println(message);
     }
 }

@@ -22,7 +22,7 @@ public class MainController {
     private final MainPersonsStorage personsStorage;
 
     public List<VarMessage> startLogic(Person person, String txt, long chatId) {
-        person = personsStorage.getPerson(person);
+        person = personsStorage.getPersonByTelegramId(person);
         if (person.getScriptMessageName() == null) {
             person.setPreviousScriptMessageNameList(new ArrayList<>());
             person.setScriptMessageName(scriptMessageStorage.getStartMessage().getName());

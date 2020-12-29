@@ -88,8 +88,8 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     }
 
     private ScriptMessage getNextScriptMessageFromScriptMessages(Person person, String text) {
-        ScriptMessage scriptMessage =  getScriptMessage(person);
-        List<ScriptMessage> sm = getScriptMessagesWithThisText(text);
+        ScriptMessage scriptMessage = getScriptMessage(person);
+        List<ScriptMessage> sm = getScriptMessagesWithThisText(scriptMessage, person, text);
         ScriptMessage nextScriptMessage = scriptMessage;
         if (sm.isEmpty()) {
             if (scriptMessage.getNext(person, text).size() == 1) {
@@ -110,13 +110,15 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
         return nextScriptMessage;
     }
 
-    private List<ScriptMessage> getScriptMessagesWithThisText(String text) {
+    private List<ScriptMessage> getScriptMessagesWithThisText(ScriptMessage scriptMessage, Person person, String text) {
         return scriptMessages
                 .values()
                 .stream()
                 .filter(x ->
                         x.getButtonText().equals(text)
-                        || (x.getButtonText().equals(ALL_NUM) && Utils.checkTheStringContainsOnlyNumbers(text)))
+                        || (x.getButtonText().equals(ALL_NUM)
+                            && Utils.checkTheStringContainsOnlyNumbers(text)
+                            && getNextButtons(scriptMessage, person).contains(ALL_NUM)))
                 .collect(Collectors.toList());
     }
 }

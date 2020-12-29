@@ -19,7 +19,7 @@ public class MemoryPersonsStorage implements PersonsStorage {
     }
 
     @Override
-    public Person getPerson(long telegramId) {
+    public Person getPersonByTelegramId(long telegramId) {
         List<Person> persons = personList.stream()
                 .filter(x -> x.getTelegramId() == telegramId)
                 .collect(Collectors.toList());
@@ -27,11 +27,11 @@ public class MemoryPersonsStorage implements PersonsStorage {
     }
 
     @Override
-    public Person getPerson(Person person) {
-            if (getPerson(person.getTelegramId()) == null) {
+    public Person getPersonByTelegramId(Person person) {
+            if (getPersonByTelegramId(person.getTelegramId()) == null) {
                 addPerson(person);
             } else {
-                person = getPerson(person.getTelegramId());
+                person = getPersonByTelegramId(person.getTelegramId());
             }
             return person;
     }

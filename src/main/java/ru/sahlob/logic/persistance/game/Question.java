@@ -21,8 +21,9 @@ public class Question {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Answer> answers = new ArrayList<>();
 
-    public Question(String questionText) {
+    public Question(String questionText, int price) {
         this.questionText = questionText;
+        this.price = price;
     }
 
     public void addAnswer(String answer) {

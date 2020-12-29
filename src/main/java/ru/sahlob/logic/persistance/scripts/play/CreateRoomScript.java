@@ -63,10 +63,12 @@ public class CreateRoomScript implements ScriptMessage {
     @Override
     public void doBackWork(String msg, Person person) {
         var room = person.getRoom();
-        person.setRoom(null);
-        dbPersonsStorage.updatePerson(person);
-        if (room.getPlayers().size() <= 1) {
-            dbRoomsStorage.deleteRoomByID(room.getId());
+        if (room != null) {
+            person.setRoom(null);
+            dbPersonsStorage.updatePerson(person);
+            if (room.getPlayers().size() <= 1) {
+                dbRoomsStorage.deleteRoomByID(room.getId());
+            }
         }
     }
 

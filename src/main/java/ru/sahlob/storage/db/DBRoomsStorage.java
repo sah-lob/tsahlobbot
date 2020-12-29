@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sahlob.logic.persistance.Person;
-import ru.sahlob.logic.persistance.Room;
+import ru.sahlob.logic.persistance.room.Room;
 import ru.sahlob.logic.persistance.game.Game;
 
 @Service
@@ -15,10 +15,9 @@ public class DBRoomsStorage {
     private final RoomsRepository roomsRepository;
 
     public Room createRoom(Person person, Game game) {
-        Room room = new Room();
-        room.addPlayer(person);
+        var room = new Room();
         room.setCreatedPlayerId(person.getId());
-        room.setGame(game);
+        room.addRoomGame(game);
         person.setRoom(room);
         return room;
     }

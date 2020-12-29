@@ -1,11 +1,9 @@
 package ru.sahlob.logic.persistance;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sahlob.logic.persistance.game.Game;
+import ru.sahlob.logic.persistance.room.Room;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import javax.persistence.*;
@@ -32,8 +30,8 @@ public class Person {
     private int firstMessageTime;
     private int massageCount = 0;
     private ScriptNames scriptMessageName;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<ScriptNames> previousScriptMessageNameList;
+    @ElementCollection
+    private List<ScriptNames> previousScriptMessageNameList = new ArrayList<>();
     private boolean isScriptCycle;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Game> games = new ArrayList<>();
