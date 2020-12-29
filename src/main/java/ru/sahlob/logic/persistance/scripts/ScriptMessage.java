@@ -10,7 +10,7 @@ public interface ScriptMessage {
     ScriptNames getName();
     String getMessageText(Person person);
     String getButtonText();
-    Set<String> additionalButton();
+    Set<String> additionalButton(Person person);
     boolean isScriptValid(String message, Person person);
     String getErrorValidMessage();
     void doBackWork(String message, Person person);

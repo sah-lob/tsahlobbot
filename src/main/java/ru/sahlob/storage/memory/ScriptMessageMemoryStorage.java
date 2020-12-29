@@ -3,7 +3,6 @@ package ru.sahlob.storage.memory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.sahlob.logic.persistance.Person;
-import ru.sahlob.logic.persistance.game.Game;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
@@ -44,8 +43,8 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
                 .map(x -> scriptMessages.get(x)
                         .getButtonText())
                 .collect(Collectors.toSet());
-        if (scriptMessage.additionalButton() != null && scriptMessage.additionalButton().size() > 0) {
-            buttons.addAll(scriptMessage.additionalButton());
+        if (scriptMessage.additionalButton(person) != null && scriptMessage.additionalButton(person).size() > 0) {
+            buttons.addAll(scriptMessage.additionalButton(person));
         }
         return buttons;
     }
@@ -60,10 +59,10 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
 
     @Override
     public ScriptMessage updateScript(Person person, String text) {
-        ScriptMessage scriptMessage = getScriptMessage(person);
+        var scriptMessage = getScriptMessage(person);
         if (scriptMessage.isScriptValid(text, person) || text.equals(BACK_BUTTON)) {
             if (text.equals(BACK_BUTTON)) {
-                ScriptMessage scriptMessage1 = scriptMessages.get(person.getLastPreviousScriptName());
+                var scriptMessage1 = scriptMessages.get(person.getLastPreviousScriptName());
                 scriptMessage1.doBackWork(text, person);
                 person.deleteLastPreviousScriptName();
                 return scriptMessage1;
@@ -88,16 +87,16 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
     }
 
     private ScriptMessage getNextScriptMessageFromScriptMessages(Person person, String text) {
-        ScriptMessage scriptMessage = getScriptMessage(person);
-        List<ScriptMessage> sm = getScriptMessagesWithThisText(scriptMessage, person, text);
-        ScriptMessage nextScriptMessage = scriptMessage;
+        var scriptMessage = getScriptMessage(person);
+        var sm = getScriptMessagesWithThisText(scriptMessage, person, text);
+        var nextScriptMessage = scriptMessage;
         if (sm.isEmpty()) {
             if (scriptMessage.getNext(person, text).size() == 1) {
                 nextScriptMessage = scriptMessages.get(scriptMessage.getNext(person, text).get(0));
             } else if (scriptMessage.getNext(person, text).size() > 1) {
-                List<ScriptNames> result = scriptMessage.getNext(person, text);
-                for (ScriptNames scriptNames : result) {
-                    Game game = person.getLastGame();
+                var result = scriptMessage.getNext(person, text);
+                for (var scriptNames : result) {
+                    var game = person.getLastGame();
                     if (game.getScriptNameCount(scriptNames) != null && game.getScriptNameCount(scriptNames) > game.getScriptNameIntroducece(scriptNames)) {
                         nextScriptMessage = scriptMessages.get(scriptNames);
                         break;

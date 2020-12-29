@@ -1,4 +1,4 @@
-package ru.sahlob.logic.persistance.scripts.play;
+package ru.sahlob.logic.persistance.scripts.play.playRoom;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -10,6 +10,7 @@ import ru.sahlob.storage.db.DBPersonsStorage;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_GAME_BUTTON;
@@ -29,8 +30,8 @@ public class StartGameScript implements ScriptMessage {
     public String getMessageText(Person person) {
         var room = person.getRoom();
         if (person.getId().equals(room.getNextChoosePersonId())) {
-            AtomicReference<String> answer = new AtomicReference<>("Вы выбираете тему");
-            AtomicReference<Integer> count = new AtomicReference<>(1);
+            var answer = new AtomicReference<>("Вы выбираете тему");
+            var count = new AtomicReference<>(1);
             var roomGame = room.getRoomGameId();
             var roomThemes = roomGame.getRoomThemes();
             roomThemes.forEach(x-> {
@@ -55,13 +56,19 @@ public class StartGameScript implements ScriptMessage {
     }
 
     @Override
-    public Set<String> additionalButton() {
+    public Set<String> additionalButton(Person person) {
         return Collections.emptySet();
     }
 
     @Override
     public boolean isScriptValid(String message, Person person) {
-        return true;
+        var flag = new AtomicBoolean(false);
+        person.getRoom().getRoomGameId().getRoomThemes().forEach(x -> {
+            if (x.getThemeText().equals(message)) {
+                flag.set(true);
+            }
+        });
+        return flag.get();
     }
 
     @Override
@@ -81,6 +88,8 @@ public class StartGameScript implements ScriptMessage {
 
     @Override
     public void doWork(String message, Person person) {
-
+        System.out.println("Выбранная тема: " + message);
+        person.getRoom().setStarted(true);
+        person.getRoom().setSelectedTheme(message);
     }
 }

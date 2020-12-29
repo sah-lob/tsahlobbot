@@ -27,9 +27,12 @@ public class Room {
     private Integer orderCount = 0;
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private RoomGame RoomGameId;
-
     @OneToMany(mappedBy = "room", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Person> players = new HashSet<>();
+    private String selectedTheme;
+    private String selectedQuestionPrice;
+
+
 
     public void addPlayer(Person player) {
         players.add(player);
@@ -54,5 +57,14 @@ public class Room {
 
     public long getNextChoosePersonId() {
         return order.get(orderCount);
+    }
+
+    public RoomTheme getSelectedTheme() {
+        return RoomGameId.getRoomThemes()
+                .stream()
+                .filter(x ->
+                        x.getThemeText().equals(selectedTheme))
+                .findFirst()
+                .orElse(null);
     }
 }

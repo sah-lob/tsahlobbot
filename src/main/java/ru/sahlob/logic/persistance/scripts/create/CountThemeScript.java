@@ -32,7 +32,7 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public Set additionalButton() {
+    public Set additionalButton(Person person) {
         return Collections.EMPTY_SET;
     }
 

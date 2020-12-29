@@ -1,4 +1,4 @@
-package ru.sahlob.logic.persistance.scripts.play;
+package ru.sahlob.logic.persistance.scripts.play.createRoom;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -36,7 +36,7 @@ public class JoinRoomScript implements ScriptMessage {
     }
 
     @Override
-    public Set<String> additionalButton() {
+    public Set<String> additionalButton(Person person) {
         return Collections.emptySet();
     }
 

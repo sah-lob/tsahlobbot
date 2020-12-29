@@ -1,49 +1,45 @@
-package ru.sahlob.logic.persistance.scripts.play;
+package ru.sahlob.logic.persistance.scripts.play.createRoom;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLAYER_ID_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.PLAYER_ID;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.START;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
 
 @Component
-public class PlayerIdScript implements ScriptMessage {
+public class OpponentChooseScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return PLAYER_ID;
+        return ScriptNames.PLAY;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return "Ваш id: " + person.getId();
+        return PLAY_GAME_TEXT;
     }
 
     @Override
     public String getButtonText() {
-        return PLAYER_ID_BUTTON;
+        return PLAY_GAME_BUTTON;
     }
 
     @Override
-    public Set<String> additionalButton() {
-        return Collections.EMPTY_SET;
+    public Set<String> additionalButton(Person person) {
+        return Collections.emptySet();
     }
 
     @Override
     public boolean isScriptValid(String message, Person person) {
-        return true;
+        return message.equals(PLAY_ONE_PLAYER_BUTTON) || message.equals(PLAY_WITH_FRIENDS_BUTTON);
     }
 
     @Override
     public String getErrorValidMessage() {
-        return null;
+        return ERROR_VALID_MESSAGE;
     }
 
     @Override
@@ -52,7 +48,7 @@ public class PlayerIdScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(ScriptNames.START);
+        return Collections.singletonList(ScriptNames.PLAY_WITH_FRIENDS);
     }
 
     @Override

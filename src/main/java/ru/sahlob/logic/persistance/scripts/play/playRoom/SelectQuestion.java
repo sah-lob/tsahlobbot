@@ -1,27 +1,34 @@
-package ru.sahlob.logic.persistance.scripts.create;
+package ru.sahlob.logic.persistance.scripts.play.playRoom;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.SELECT_QUESTION;
 
 @Component
-public class ThemeScript implements ScriptMessage {
+public class SelectQuestion implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return ScriptNames.GAME_THEMES;
+        return SELECT_QUESTION;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return THEME_GAME_TEXT + " " + (person.getLastGame().getThemes().size() + 1);
+        var n = new AtomicReference<>("Выберете цену вороса:\n Доступные цены: \n");
+        person
+                .getRoom()
+                .getSelectedTheme()
+                .getRoomQuestions()
+                .forEach(x -> n.set(n.get() + "\n" + x.getPrice()));
+        return String.valueOf(n);
     }
 
     @Override
@@ -31,32 +38,31 @@ public class ThemeScript implements ScriptMessage {
 
     @Override
     public Set<String> additionalButton(Person person) {
-        return Collections.EMPTY_SET;
+        return null;
     }
 
     @Override
     public boolean isScriptValid(String message, Person person) {
-        return true;
+        return false;
     }
 
     @Override
     public String getErrorValidMessage() {
-        return ERROR_VALID_MESSAGE;
+        return null;
     }
 
     @Override
-    public void doBackWork(String msg, Person person) {
+    public void doBackWork(String message, Person person) {
 
     }
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(ScriptNames.GAME_QUESTIONS);
+        return null;
     }
 
     @Override
     public void doWork(String message, Person person) {
-        person.getLastGame().addTheme(message);
-        System.out.println(message);
+
     }
 }

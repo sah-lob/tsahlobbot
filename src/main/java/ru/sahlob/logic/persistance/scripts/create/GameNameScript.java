@@ -31,7 +31,7 @@ public class GameNameScript implements ScriptMessage {
     }
 
     @Override
-    public Set<String> additionalButton() {
+    public Set<String> additionalButton(Person person) {
         return Collections.EMPTY_SET;
     }
 

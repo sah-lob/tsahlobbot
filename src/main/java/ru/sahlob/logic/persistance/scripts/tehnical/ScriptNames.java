@@ -31,5 +31,6 @@ public enum ScriptNames {
  ALL_GAMES,
  ROOM,
  JOINT_ROOM,
- START_GAME
+ START_GAME,
+ SELECT_QUESTION
 }
