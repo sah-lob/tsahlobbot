@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.START_GAME_BUTTON;
 
@@ -57,7 +58,11 @@ public class StartGameScript implements ScriptMessage {
 
     @Override
     public Set<String> additionalButton(Person person) {
-        return Collections.emptySet();
+        var room = person.getRoom();
+        return room.getRoomGameId().getRoomThemes()
+                .stream()
+                .map(x -> String.valueOf(x.getThemeText()))
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -83,7 +88,7 @@ public class StartGameScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Collections.singletonList(ScriptNames.PLUG);
+        return Collections.singletonList(ScriptNames.SELECT_QUESTION);
     }
 
     @Override

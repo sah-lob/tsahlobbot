@@ -5,9 +5,11 @@ import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_BUTTONS;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.SELECT_QUESTION;
@@ -38,12 +40,18 @@ public class SelectQuestion implements ScriptMessage {
 
     @Override
     public Set<String> additionalButton(Person person) {
-        return null;
+        var room = person.getRoom();
+        return room
+                .getSelectedTheme()
+                .getRoomQuestions()
+                .stream()
+                .map(x -> String.valueOf(x.getPrice()))
+                .collect(Collectors.toSet());
     }
 
     @Override
     public boolean isScriptValid(String message, Person person) {
-        return false;
+        return true;
     }
 
     @Override
@@ -58,11 +66,11 @@ public class SelectQuestion implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return null;
+        return Collections.singletonList(ScriptNames.PLUG);
     }
 
     @Override
     public void doWork(String message, Person person) {
-
+        System.out.println(message);
     }
 }
