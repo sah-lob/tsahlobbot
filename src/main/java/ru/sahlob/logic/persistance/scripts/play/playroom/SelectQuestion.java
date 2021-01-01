@@ -1,4 +1,4 @@
-package ru.sahlob.logic.persistance.scripts.play.playRoom;
+package ru.sahlob.logic.persistance.scripts.play.playroom;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;

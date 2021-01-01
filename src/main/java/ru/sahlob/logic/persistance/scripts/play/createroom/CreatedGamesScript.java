@@ -1,4 +1,4 @@
-package ru.sahlob.logic.persistance.scripts.play.createRoom;
+package ru.sahlob.logic.persistance.scripts.play.createroom;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
@@ -8,7 +8,6 @@ import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATED_GAMES_BUTTON;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATED_GAMES_TEXT;

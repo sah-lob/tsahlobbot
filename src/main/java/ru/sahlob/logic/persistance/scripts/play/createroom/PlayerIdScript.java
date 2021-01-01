@@ -1,34 +1,32 @@
-package ru.sahlob.logic.persistance.scripts.play.createRoom;
+package ru.sahlob.logic.persistance.scripts.play.createroom;
 
 import org.springframework.stereotype.Component;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLAY_WITH_FRIENDS_BUTTON;
-import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.*;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.PLAYER_ID_BUTTON;
+import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames.PLAYER_ID;
 
 @Component
-public class PlayWithFriendsScript implements ScriptMessage {
+public class PlayerIdScript implements ScriptMessage {
 
     @Override
     public ScriptNames getName() {
-        return PLAY_WITH_FRIENDS;
+        return PLAYER_ID;
     }
 
     @Override
     public String getMessageText(Person person) {
-        return "Создать комнату / Присоединиться к комнате";
+        return "Ваш id: " + person.getId();
     }
 
     @Override
     public String getButtonText() {
-        return PLAY_WITH_FRIENDS_BUTTON;
+        return PLAYER_ID_BUTTON;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class PlayWithFriendsScript implements ScriptMessage {
 
     @Override
     public List<ScriptNames> getNext(Person person, String message) {
-        return Arrays.asList(CREATE_ROOM, JOINT_ROOM);
+        return Collections.singletonList(ScriptNames.START);
     }
 
     @Override

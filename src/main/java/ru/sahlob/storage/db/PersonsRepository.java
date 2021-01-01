@@ -9,5 +9,5 @@ import ru.sahlob.logic.persistance.Person;
 @Component
 public interface PersonsRepository extends CrudRepository<Person, Integer> {
     Person getFirstPersonByTelegramId(Long telegramID);
-    Person getFirstPersonById(Long Id);
+    Person getFirstPersonById(Long id);
 }

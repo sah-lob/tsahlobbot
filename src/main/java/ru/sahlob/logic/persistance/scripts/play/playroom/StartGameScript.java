@@ -1,4 +1,4 @@
-package ru.sahlob.logic.persistance.scripts.play.playRoom;
+package ru.sahlob.logic.persistance.scripts.play.playroom;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

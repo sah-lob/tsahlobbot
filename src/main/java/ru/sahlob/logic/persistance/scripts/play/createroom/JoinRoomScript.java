@@ -1,4 +1,4 @@
-package ru.sahlob.logic.persistance.scripts.play.createRoom;
+package ru.sahlob.logic.persistance.scripts.play.createroom;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
