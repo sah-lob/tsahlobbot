@@ -11,9 +11,7 @@ import ru.sahlob.storage.db.DBRoomsStorage;
 import ru.sahlob.util.Utils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.ALL_GAMES_BUTTON;
 import static ru.sahlob.logic.persistance.scripts.tehnical.ScriptMessageText.CREATE_ROOM_BUTTON;
@@ -43,21 +41,11 @@ public class CreateRoomScript implements ScriptMessage {
     }
 
     @Override
-    public Set<String> additionalButton(Person person) {
-        return Collections.emptySet();
-    }
-
-    @Override
     public boolean isScriptValid(String message, Person person) {
         if (Utils.checkTheStringContainsOnlyNumbers(message)) {
             return dbGamesStorage.existsGameById(Long.parseLong(message));
         }
         return message.equals(ALL_GAMES_BUTTON);
-    }
-
-    @Override
-    public String getErrorValidMessage() {
-        return null;
     }
 
     @Override

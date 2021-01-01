@@ -36,21 +36,6 @@ public class AnswersScript implements ScriptMessage {
     }
 
     @Override
-    public Set<String> additionalButton(Person person) {
-        return Collections.EMPTY_SET;
-    }
-
-    @Override
-    public boolean isScriptValid(String message, Person person) {
-        return true;
-    }
-
-    @Override
-    public String getErrorValidMessage() {
-        return ERROR_VALID_MESSAGE;
-    }
-
-    @Override
     public void doBackWork(String msg, Person person) {
 
     }

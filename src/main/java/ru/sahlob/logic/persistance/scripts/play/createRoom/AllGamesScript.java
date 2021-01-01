@@ -54,11 +54,6 @@ public class AllGamesScript implements ScriptMessage {
     }
 
     @Override
-    public String getErrorValidMessage() {
-        return null;
-    }
-
-    @Override
     public void doBackWork(String msg, Person person) {
 
     }

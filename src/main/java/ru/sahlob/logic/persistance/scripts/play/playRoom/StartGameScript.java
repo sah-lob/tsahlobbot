@@ -77,11 +77,6 @@ public class StartGameScript implements ScriptMessage {
     }
 
     @Override
-    public String getErrorValidMessage() {
-        return null;
-    }
-
-    @Override
     public void doBackWork(String message, Person person) {
 
     }

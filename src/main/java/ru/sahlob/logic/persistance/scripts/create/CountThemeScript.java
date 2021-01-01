@@ -42,11 +42,6 @@ public class CountThemeScript implements ScriptMessage {
     }
 
     @Override
-    public String getErrorValidMessage() {
-        return ERROR_VALID_MESSAGE;
-    }
-
-    @Override
     public void doBackWork(String msg, Person person) {
 
     }

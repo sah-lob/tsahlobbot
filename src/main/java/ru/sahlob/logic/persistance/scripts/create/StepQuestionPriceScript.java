@@ -43,11 +43,6 @@ public class StepQuestionPriceScript implements ScriptMessage {
     }
 
     @Override
-    public String getErrorValidMessage() {
-        return "Что-то вы ввели не так=(";
-    }
-
-    @Override
     public void doBackWork(String msg, Person person) {
     }
 

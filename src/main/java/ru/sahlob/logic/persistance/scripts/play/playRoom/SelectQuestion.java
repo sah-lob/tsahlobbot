@@ -50,16 +50,6 @@ public class SelectQuestion implements ScriptMessage {
     }
 
     @Override
-    public boolean isScriptValid(String message, Person person) {
-        return true;
-    }
-
-    @Override
-    public String getErrorValidMessage() {
-        return null;
-    }
-
-    @Override
     public void doBackWork(String message, Person person) {
 
     }

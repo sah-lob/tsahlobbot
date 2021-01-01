@@ -54,11 +54,6 @@ public class RoomScript implements ScriptMessage {
     }
 
     @Override
-    public String getErrorValidMessage() {
-        return null;
-    }
-
-    @Override
     public void doBackWork(String msg, Person person) {
 
     }

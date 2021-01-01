@@ -28,21 +28,11 @@ public class StartScript implements ScriptMessage {
     }
 
     @Override
-    public Set<String> additionalButton(Person person) {
-        return Collections.EMPTY_SET;
-    }
-
-    @Override
     public boolean isScriptValid(String message, Person person) {
         return message.equals(CREATE_GAME_BUTTON)
                || message.equals(PLAY_GAME_BUTTON)
                || message.equals(CREATED_GAMES_BUTTON)
                || message.equals(PLAYER_ID_BUTTON);
-    }
-
-    @Override
-    public String getErrorValidMessage() {
-        return null;
     }
 
     @Override

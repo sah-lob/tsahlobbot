@@ -49,11 +49,6 @@ public class JoinRoomScript implements ScriptMessage {
     }
 
     @Override
-    public String getErrorValidMessage() {
-        return null;
-    }
-
-    @Override
     public void doBackWork(String message, Person person) {
         person.setRoom(null);
     }
