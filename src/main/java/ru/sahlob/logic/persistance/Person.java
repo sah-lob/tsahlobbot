@@ -24,6 +24,7 @@ public class Person {
     @ToString.Include
     private Long id;
     private Long telegramId;
+    private Integer gamePoints = 0;
     private String firstName;
     private String lastName;
     private String userName;

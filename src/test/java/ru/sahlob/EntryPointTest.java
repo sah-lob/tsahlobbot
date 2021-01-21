@@ -10,6 +10,7 @@ import ru.sahlob.logic.persistance.MainController;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.VarMessage;
 
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -23,22 +24,35 @@ class EntryPointTest {
     private SettingsConfigurationInfo settingsConfigurationInfo;
 
     @Test
-    void onUpdateReceivedTest() {
+    void createNewGameByPerson() {
         var person = new Person();
-        person.setTelegramId(-1L);
-        person.setFirstName("TestName");
-        person.setLastName("TestLastName");
-        person.setUserName("testUserName");
         var chatId = -2L;
-        VarMessage varMessage = null;
-        while (true) {
-//            String txt = "asdf";
-//            varMessage = mainController.startLogic(person, txt, chatId);
-//            System.out.println("-----------------------------------------------------");
-//            System.out.println(varMessage.getText());
-//            System.out.println(varMessage.getButtonsText());
-//            System.out.println("-----------------------------------------------------");
+        person.setTelegramId(80123808L);
+        person.setFirstName("Alexander");
+        person.setLastName("Lobachev");
+        mainController.startLogic(person, "sdf", chatId);
+        mainController.startLogic(person, "Создать игру", chatId);
+        mainController.startLogic(person, "Название игры", chatId);
+        mainController.startLogic(person, "4", chatId);//кол-во тем
+        mainController.startLogic(person, "4", chatId); //кол-во вопросов
+        mainController.startLogic(person, "4", chatId); // кол-во ответов
+        mainController.startLogic(person, "100", chatId); // стартовая цена
+        mainController.startLogic(person, "100", chatId); // шаг цены
+        for (int i = 0; i < 4; i++) {
+            mainController.startLogic(person, "Тема номер: " + (i + 1), chatId);
+            for (int j = 0; j < 4; j++) {
+                mainController.startLogic(person, "Вопрос номер: " + (i + 1) + "" + (j + 1), chatId);
+                mainController.startLogic(person, "Правильный ответ номер " + (i + 1) + "" + (j + 1) + "1", chatId);
+                for (int k = 0; k < 3; k++) {
+                    mainController.startLogic(person, "Ответ номер " + (i + 1) + "" + (j + 1) + "" + (k + 2), chatId);
+                }
+            }
         }
+    }
+
+    @Test
+    void createNewRoomByPerson() {
+
     }
 
 }

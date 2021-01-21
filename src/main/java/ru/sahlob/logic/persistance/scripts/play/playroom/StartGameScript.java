@@ -36,12 +36,21 @@ public class StartGameScript implements ScriptMessage {
             var roomGame = room.getRoomGameId();
             var roomThemes = roomGame.getRoomThemes();
             roomThemes.forEach(x-> {
-                answer.set(answer.get()
-                           + "\n"
-                           + count.getAndSet(count.get() + 1)
-                           + ") "
-                           + x.getThemeText() + "\n   Оставшиеся цены:");
-                x.getRoomQuestions().forEach(z -> answer.set(answer.get() + "\n   " + z.getPrice()));
+                var roomQuestions = x.getRoomQuestions();
+                if (roomQuestions.size() == 0) {
+                    answer.set(
+                            answer.get()
+                            + "\n"
+                            + count.getAndSet(count.get() + 1)
+                            + ") "  + x.getThemeText() + ". Вопросы в данной теме закончились=)");
+                } else {
+                    answer.set(answer.get()
+                               + "\n"
+                               + count.getAndSet(count.get() + 1)
+                               + ") "
+                               + x.getThemeText() + "\n   Оставшиеся цены:");
+                    roomQuestions.forEach(z -> answer.set(answer.get() + "\n   " + z.getPrice()));
+                }
             });
             answer.set(answer.get() + "\nВыберете одну из тем");
             return answer.get();

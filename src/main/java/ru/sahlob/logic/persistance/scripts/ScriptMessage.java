@@ -18,7 +18,16 @@ public interface ScriptMessage {
     default boolean isScriptValid(String message, Person person) {
      return true;
     }
-    void doBackWork(String message, Person person);
+    default void doBackWork(String message, Person person) { }
     List<ScriptNames> getNext(Person person, String message);
     void doWork(String message, Person person);
+    default boolean automaticNextScript(Person person) {
+        return false;
+    }
+    default String getAutomaticMessageText(Person person) {
+        return "";
+    }
+    default void doAutomaticWork(String message, Person person) {
+
+    }
 }

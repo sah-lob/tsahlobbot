@@ -7,6 +7,7 @@ import ru.sahlob.storage.MainPersonsStorage;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,16 +31,24 @@ public class MainController {
             person.setScriptMessageName(scriptMessageStorage.updateScript(person, txt).getName());
         }
         personsStorage.updatePerson(person);
-        VarMessage firstVarMessage = new VarMessage(scriptMessageStorage.getScriptMessage(person).getMessageText(person),
-                scriptMessageStorage
-                        .getNextButtons(scriptMessageStorage.getScriptMessage(person), person)
-                        .stream()
-                        .filter(x -> !x.equals(ALL_BUTTONS))
-                        .filter(x -> !x.equals(ALL_NUM))
-                        .collect(Collectors.toSet()),
-                chatId);
         List<VarMessage> varMessageList = new ArrayList<>();
-        varMessageList.add(firstVarMessage);
+        if (!scriptMessageStorage.getScriptMessage(person).automaticNextScript(person)) {
+            var firstVarMessage = new VarMessage(scriptMessageStorage.getScriptMessage(person).getMessageText(person),
+                    scriptMessageStorage
+                            .getNextButtons(scriptMessageStorage.getScriptMessage(person), person)
+                            .stream()
+                            .filter(x -> !x.equals(ALL_BUTTONS))
+                            .filter(x -> !x.equals(ALL_NUM))
+                            .collect(Collectors.toSet()),
+                    chatId);
+            varMessageList.add(firstVarMessage);
+        } else {
+            var firstVarMessage = new VarMessage(
+                    scriptMessageStorage.getScriptMessage(person).getAutomaticMessageText(person),
+                    Collections.emptySet(),
+                    chatId);
+            varMessageList.add(firstVarMessage);
+        }
         varMessageList.addAll(person.getVarMessagesList());
         return varMessageList;
     }

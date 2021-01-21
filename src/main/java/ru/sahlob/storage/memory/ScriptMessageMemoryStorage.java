@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
+import ru.sahlob.storage.MainPersonsStorage;
 import ru.sahlob.storage.interfaces.ScriptMessageStorage;
 import ru.sahlob.util.Utils;
 
@@ -67,7 +68,11 @@ public class ScriptMessageMemoryStorage implements ScriptMessageStorage {
                 person.deleteLastPreviousScriptName();
                 return scriptMessage1;
             } else {
-                scriptMessage.doWork(text, person);
+                if (scriptMessage.automaticNextScript(person)) {
+                    scriptMessage.doAutomaticWork(text, person);
+                } else {
+                    scriptMessage.doWork(text, person);
+                }
                 person.addPreviousScriptName(person.getScriptMessageName());
                 return getNextScriptMessage(person, text);
             }

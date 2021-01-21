@@ -3,6 +3,7 @@ package ru.sahlob.storage.interfaces;
 import ru.sahlob.logic.persistance.Person;
 import ru.sahlob.logic.persistance.scripts.ScriptMessage;
 import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
+import ru.sahlob.storage.MainPersonsStorage;
 
 import java.util.Set;
 

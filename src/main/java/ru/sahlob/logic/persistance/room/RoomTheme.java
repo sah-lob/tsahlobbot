@@ -36,6 +36,9 @@ public class RoomTheme {
 
     public List<RoomQuestion> getRoomQuestions() {
         roomQuestions.removeIf(RoomQuestion::isQuestionAsked);
+        if (roomQuestions.size() == 0) {
+            isAllThemeAsked = true;
+        }
         return roomQuestions;
     }
 }

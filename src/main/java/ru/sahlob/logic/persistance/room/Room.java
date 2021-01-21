@@ -2,7 +2,10 @@ package ru.sahlob.logic.persistance.room;
 
 import lombok.*;
 import ru.sahlob.logic.persistance.Person;
+import ru.sahlob.logic.persistance.VarMessage;
 import ru.sahlob.logic.persistance.game.Game;
+import ru.sahlob.logic.persistance.scripts.tehnical.ScriptNames;
+import ru.sahlob.storage.db.DBPersonsStorage;
 
 import javax.persistence.*;
 import java.util.*;
@@ -25,12 +28,15 @@ public class Room {
     @ElementCollection
     private List<Long> order = new ArrayList<>();
     private Integer orderCount = 0;
+    private Integer numberOfRespondents = 0;
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private RoomGame roomGameId;
     @OneToMany(mappedBy = "room", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Person> players = new HashSet<>();
     private String selectedTheme;
     private String selectedQuestionPrice;
+    @Transient
+    private RoomQuestion selectedQuestion;
 
 
 
@@ -40,6 +46,29 @@ public class Room {
 
     public Set<Person> getPersonWithoutAdmin() {
         return players.stream().filter(x -> !x.getId().equals(createdPlayerId)).collect(Collectors.toSet());
+    }
+
+
+    public List<VarMessage> varMessagesToOtherPlayers(Long playerId,
+                                                      ScriptNames scriptName,
+                                                      DBPersonsStorage dbPersonsStorage,
+                                                      String text,
+                                                      Set<String> buttons) {
+        var varMessages = new ArrayList<VarMessage>();
+        players
+                .stream()
+                .filter(x -> !x.getId().equals(playerId))
+                .collect(Collectors.toSet())
+                .forEach(x -> {
+                    x.setScriptMessageName(scriptName);
+                    dbPersonsStorage.updatePerson(x);
+                    varMessages.add(
+                            new VarMessage(
+                                    text,
+                                    buttons,
+                                    x.getTelegramId()));
+                });
+        return varMessages;
     }
 
     public void addRoomGame(Game game) {
@@ -59,6 +88,14 @@ public class Room {
         return order.get(orderCount);
     }
 
+    public void incrementNextChoosePersonId() {
+        if (orderCount + 1 >= order.size()) {
+            orderCount = 0;
+        } else {
+            orderCount++;
+        }
+    }
+
     public RoomTheme getSelectedTheme() {
         return roomGameId.getRoomThemes()
                 .stream()
@@ -66,5 +103,15 @@ public class Room {
                         x.getThemeText().equals(selectedTheme))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public RoomQuestion getSelectedRoomQuestion() {
+        var roomTheme = getSelectedTheme();
+        int price = Integer.parseInt(selectedQuestionPrice);
+        return roomTheme.getRoomQuestions().stream().filter(x -> x.getPrice() == price).findFirst().get();
+    }
+
+    public synchronized void incrementNumberOfRespondents() {
+        numberOfRespondents++;
     }
 }
